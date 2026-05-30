@@ -1,0 +1,2 @@
+squeue -p a100
+sbatch scripts/run_all.sh
