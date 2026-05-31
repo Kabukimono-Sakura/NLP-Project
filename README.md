@@ -209,7 +209,7 @@ Sarcasm-R1/
 | Qwen2.5-7B（SFT） | 监督微调 | 0.746 | 0.692 | 0.678 | 0.706 |
 | **Sarcasm-R1 (GRPO, best)** | **GRPO + 三维推理** | **0.798** | **0.718** | **0.706** | **0.730** |
 
-![主要结果对比](results/figures/main_results_comparison.png)
+![主要结果对比](Figure/main_results_comparison.png)
 
 **核心发现：**
 - GRPO 训练相比零样本提升了 **+14.6%** 准确率，相比 SFT 提升了 **+5.2%**
@@ -218,7 +218,7 @@ Sarcasm-R1/
 
 #### 3.2 训练动态
 
-![训练曲线](results/figures/training_curves.png)
+![训练曲线](Figure/training_curves.png)
 
 训练动态展示了健康的学习进程：
 
@@ -247,13 +247,13 @@ Sarcasm-R1/
 | **ckpt-80** | 80 | **0.798** | **0.718** | **0.784** | **0.791** |
 | ckpt-100 | 100 | 0.793 | 0.711 | 0.779 | 0.787 |
 
-![检查点性能](results/figures/checkpoint_performance.png)
+![检查点性能](Figure/checkpoint_performance.png)
 
 模型在 checkpoint-80（step 80）达到最佳性能，之后性能趋于平稳并略有下降。这表明 80-100 步是该训练配置的最优范围。
 
 #### 3.4 混淆矩阵
 
-![混淆矩阵](results/figures/confusion_matrices.png)
+![混淆矩阵](Figure/confusion_matrices.png)
 
 **Sarcasm-R1 (GRPO, ckpt-80) 在 SemEval 测试集 (n=784)：**
 
@@ -312,13 +312,13 @@ Sarcasm-R1/
 | 准确性 + 格式 + 维度 | 0.786 | 0.708 | 覆盖所有三个维度 |
 | **组合加权** | **0.798** | **0.718** | **最优——均衡的权重设计有效** |
 
-![消融实验](results/figures/ablation_study.png)
+![消融实验](Figure/ablation_study.png)
 
 消融实验确认每个奖励组件都对最终性能有贡献。维度覆盖奖励尤为重要（+1.2% 准确率，+1.0% F1），它鼓励模型从所有三个维度分析讽刺，从而产生更稳健的预测。
 
 #### 3.7 维度覆盖分析
 
-![维度覆盖](results/figures/dimension_coverage.png)
+![维度覆盖](Figure/dimension_coverage.png)
 
 GRPO 训练后，89% 的模型输出覆盖了所有三个推理维度（Rhetoric, Context, Emotion），而零样本基础模型仅有 18%。这证明维度覆盖奖励有效地塑造了模型的推理结构。
 

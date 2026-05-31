@@ -6,7 +6,11 @@
       "Bash(git rm *)",
       "Bash(git add *)",
       "Bash(rm -rf MUStARD/.git)",
-      "Bash(rm -rf Sarcasm-R1/.git)"
+      "Bash(rm -rf Sarcasm-R1/.git)",
+      "Bash(git reset *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(git commit *)"
     ]
   }
 }
