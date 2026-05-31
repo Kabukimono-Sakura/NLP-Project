@@ -1,0 +1,6368 @@
+==========================================
+ Job ID    : 88324
+ Node      : l40gpu001
+ Start     : 2026-05-30 22:13:04
+==========================================
+[INFO] Submit directory: /lab/haoq_lab/cse12312606/sakura-nlp-project-version3/Sarcasm-R1
+[INFO] Conda env: base
+[INFO] HF cache: /lab/haoq_lab/cse12312606/sakura-nlp-project-version3/Sarcasm-R1/hf_cache
+
+---- Environment Info ----
+Python 3.9.12
+PyTorch : 2.8.0+cu128
+CUDA    : True
+GPU     : NVIDIA L40, 46068 MiB
+GPUs    : 1
+TRL     : 0.24.0
+--------------------------
+
+[INFO] Using local model: /lab/haoq_lab/cse12312606/sakura-nlp-project-version3/Sarcasm-R1/models/Qwen2.5-1.5B-Instruct
+[INFO] Model  : /lab/haoq_lab/cse12312606/sakura-nlp-project-version3/Sarcasm-R1/models/Qwen2.5-1.5B-Instruct
+[INFO] Data   : /lab/haoq_lab/cse12312606/sakura-nlp-project-version3/Sarcasm-R1/data
+[INFO] Output : /lab/haoq_lab/cse12312606/sakura-nlp-project-version3/Sarcasm-R1/output/sarcasm-r1-v3
+[INFO] GPUs   : 1
+
+[INFO] Checking required files...
+  [OK] code/grpo/train.py
+  [OK] code/grpo/rewards.py
+  [OK] code/grpo/prompts.py
+  [OK] code/grpo/config.yaml
+  [OK] code/grpo/deepspeed_zero2.yaml
+  [OK] code/evaluation/inference.py
+  [OK] code/evaluation/evaluate.py
+  [OK] data/download_data.py
+
+##########################################################
+# STAGE 1: Data Preparation      [22:13:17]
+##########################################################
+
+[INFO] Raw data already exists, skipping download.
+[INFO] Processing datasets...
+[INFO] Processing SemEval 2018...
+Processed train: 2862 samples -> /lab/haoq_lab/cse12312606/sakura-nlp-project-version3/Sarcasm-R1/data/processed/semeval_train.csv
+  Distribution: {'sarcastic': 1445, 'non_sarcastic': 1417}
+Processed test: 784 samples -> /lab/haoq_lab/cse12312606/sakura-nlp-project-version3/Sarcasm-R1/data/processed/semeval_test.csv
+  Distribution: {'non_sarcastic': 473, 'sarcastic': 311}
+Processed validation: 955 samples -> /lab/haoq_lab/cse12312606/sakura-nlp-project-version3/Sarcasm-R1/data/processed/semeval_validation.csv
+  Distribution: {'non_sarcastic': 499, 'sarcastic': 456}
+[INFO] Processing MUStARD...
+Processed from JSON: 690 samples -> /lab/haoq_lab/cse12312606/sakura-nlp-project-version3/Sarcasm-R1/data/processed/mustard_train.csv
+MUStARD processing complete.
+[INFO] Formatting GRPO training data...
+  Loaded mustard_train.csv: 690 samples
+  Loaded semeval_test.csv: 784 samples
+  Loaded semeval_train.csv: 2862 samples
+  Loaded semeval_validation.csv: 955 samples
+
+Combined GRPO data: 5291 samples -> /lab/haoq_lab/cse12312606/sakura-nlp-project-version3/Sarcasm-R1/data/processed/train_combined.csv
+  Distribution: {'non_sarcastic': 2734, 'sarcastic': 2557}
+
+[22:13:20] Stage 1 (data prep) done.
+  Training data: /lab/haoq_lab/cse12312606/sakura-nlp-project-version3/Sarcasm-R1/data/processed/train_combined.csv (5291 samples)
+
+##########################################################
+# STAGE 2: GRPO Training          [22:13:20]
+##########################################################
+
+[INFO] Single-GPU training
+Loading data from: /lab/haoq_lab/cse12312606/sakura-nlp-project-version3/Sarcasm-R1/data/processed/train_combined.csv
+  Raw data: 5291 samples
+  Columns: ['prompt', 'question', 'answer']
+  Formatted: 5291 samples
+  Distribution: {'sarcastic': 2557, 'non_sarcastic': 2734}
+
+============================================================
+Training Configuration:
+  Model: /lab/haoq_lab/cse12312606/sakura-nlp-project-version3/Sarcasm-R1/models/Qwen2.5-1.5B-Instruct
+  Data: 5291 samples
+  Epochs: 1
+  Batch size: 2
+  Generations per prompt: 8
+  Learning rate: 5e-06
+  Output: /lab/haoq_lab/cse12312606/sakura-nlp-project-version3/Sarcasm-R1/output/sarcasm-r1-v3
+  Reward functions: ['combined_reward', 'accuracy_reward_log']
+============================================================
+
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "I tweeted about how dangerous Glasgow is, and a Glaswegian party venue followed me. #win"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+**Rhetorical Analysis:** The text uses a rhetorical device called irony. This occurs because the tweeter is expressing concern about the danger of Glasgow, which he then follows up on with his own experience being followed by someone from Glasgow who works at a party venue. 
+
+**Context Analysis:** T...
+----------
+Example answer: sarcastic
+Predicted: non_sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -8.0,
+    -8.0,
+    -8.0,
+    27.0,
+    27.0,
+    27.0,
+    27.0,
+    27.0
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "Yay for another work at 4am day 😐"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+**Rhetoric Analysis:** The use of emojis ("😉") suggests a casual tone, which could indicate sarcasm but does not conclusively prove it.
+
+**Context Analysis:** The context appears to be someone responding positively to work starting late at night, possibly using humor or exaggeration.
+
+**Emotion Anal...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    -10.0,
+    -10.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.0,
+    -8.0,
+    -8.0,
+    27.0,
+    27.0,
+    27.0,
+    27.0,
+    27.0
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "@user THX4FLW! FLWtheMUSIC @user @user WE R #ElektrikBLOOM #ElektrikFANTASY #iwant2DRIFT #Elev8TheUnderground!"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+**Rhetoric Analysis:** The use of multiple hashtags and exclamation marks suggests that the user is emphasizing their enthusiasm about the music they're referring to. This rhetorical device helps convey a sense of excitement and passion.
+
+**Context Analysis:** The context appears to be a discussion ...
+----------
+Example answer: non_sarcastic
+Predicted: 
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    25.0,
+    25.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -8.0,
+    27.0,
+    27.0,
+    -8.0,
+    -8.0,
+    -8.0,
+    -8.0,
+    -8.0
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "or have you redefined "network" to mean a lone moron talking to himself on youtube @user @user @user @user"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+**Rhetoric Analysis:** The use of repeated hashtags "@user @user @user @user" suggests a repetitive pattern, which could be seen as a rhetorical device aimed at emphasizing repetition or calling attention to a specific group (in this case, users).
+
+**Context Analysis:** The context here seems to be ...
+----------
+Example answer: non_sarcastic
+Predicted: non_sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    -10.0,
+    25.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.0,
+    27.0,
+    -8.0,
+    27.0,
+    -8.0,
+    -8.0,
+    -8.0,
+    -8.0
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "Atheists celebrating Christmas.||"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+**Rhetoric Analysis:** The use of double negatives ("celebrating") suggests a form of ironic exaggeration. This rhetorical device implies that something is being done in an exaggerated manner to make a point.
+
+**Context Analysis:** The context appears to be about the celebration of holidays, particu...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.0,
+    27.0,
+    27.0,
+    27.0,
+    27.0,
+    27.0,
+    27.0,
+    27.0
+  ]
+}
+{'loss': 0.0056, 'grad_norm': 0.0, 'learning_rate': 2.25e-06, 'num_tokens': 15265.0, 'completions/mean_length': 172.225, 'completions/min_length': 122.8, 'completions/max_length': 229.8, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 172.225, 'completions/min_terminated_length': 122.8, 'completions/max_terminated_length': 229.8, 'rewards/combined_reward/mean': 13.0, 'rewards/combined_reward/std': 13.726428985595703, 'rewards/accuracy_reward_log/mean': 0.0, 'rewards/accuracy_reward_log/std': 0.0, 'reward': 13.0, 'reward_std': 13.726428985595703, 'frac_reward_zero_std': 0.2, 'entropy': 1.2558287322521209, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0002710027154535055, 'clip_ratio/high_max': 0.0002710027154535055, 'clip_ratio/region_mean': 0.0002710027154535055, 'epoch': 0.0}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "Company profile NOT TWINS VENTURES, LLC -   #TWINS #VENTURES, #LLC"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+**Rhetoric Analysis:** The use of hashtags (#TWINS #VENTURES, #LLC) suggests a playful tone that could indicate sarcasm. However, without explicit language indicating mockery, we cannot definitively state it's sarcastic.
+
+**Context Analysis:** The text appears to be part of a larger marketing campai...
+----------
+Example answer: non_sarcastic
+Predicted: non_sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    -10.0,
+    25.0,
+    -10.0,
+    -10.0,
+    25.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.0,
+    -8.0,
+    27.0,
+    -8.0,
+    -8.0,
+    27.0,
+    -8.0,
+    -8.0
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "D-1 test first day ✌️✌️  #read #book #งวย 5555 #doing #home #work =_="
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+**Rhetoric Analysis:** The text uses a combination of emojis and abbreviations to convey sarcasm. For example, using "✌️" instead of a regular smiley face conveys a sense of mockery.
+
+**Context Analysis:** The text mentions various books and activities, which suggests that the author is engaging in ...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    25.0,
+    -10.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.0,
+    -8.0,
+    -8.0,
+    -8.0,
+    27.0,
+    -8.0,
+    27.0,
+    27.0
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "Lol my timehop guy though."
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+**Rhetoric Analysis:** The text uses a combination of abbreviations ("Lol", "my timehop guy") and informal language ("though"), which suggests a casual tone that could indicate sarcasm.
+
+**Context Analysis:** The context appears to be a conversation where someone is jokingly responding to another pe...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    -10.0,
+    25.0,
+    25.0,
+    25.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.0,
+    27.0,
+    27.0,
+    -8.0,
+    27.0,
+    27.0,
+    27.0,
+    -8.0
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "I'm pretty sure this bad boy is worth at least 6 stokes per round! #dreamon  @ 913 miranda place"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+**Rhetoric Analysis:** The text uses rhetorical devices such as hyperbole ("bad boy" is described as worth "at least 6 stokes per round") and repetition ("#dreamon" repeated twice). Additionally, the use of hashtags (#dreamon) further emphasizes the hyperbolic nature of the statement.
+
+**Context Ana...
+----------
+Example answer: sarcastic
+Predicted: 
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    -10.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    4.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -8.0,
+    26.0,
+    27.0,
+    27.0,
+    27.0,
+    -8.0,
+    27.0,
+    27.0
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "Where is the promise of "peace on earth" in this? "Lord, Thy Kingdom come, Thy will be done." #Advent #terror #irony"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+**Rhetoric Analysis:** The text employs a rhetorical device known as irony. This is evident when the speaker uses phrases such as "promise of peace on earth," which directly contradicts the reality presented later in the text ("Lord, Thy Kingdom come, Thy will be done."). 
+
+**Context Analysis:** The...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.0,
+    27.0,
+    27.0,
+    27.0,
+    27.0,
+    27.0,
+    27.0,
+    27.0
+  ]
+}
+{'loss': -0.0108, 'grad_norm': 0.0, 'learning_rate': 4.75e-06, 'num_tokens': 31245.0, 'completions/mean_length': 187.5, 'completions/min_length': 137.6, 'completions/max_length': 258.0, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 187.5, 'completions/min_terminated_length': 137.6, 'completions/max_terminated_length': 258.0, 'rewards/combined_reward/mean': 15.6, 'rewards/combined_reward/std': 13.830550384521484, 'rewards/accuracy_reward_log/mean': 0.0, 'rewards/accuracy_reward_log/std': 0.0, 'reward': 15.6, 'reward_std': 13.830550003051759, 'frac_reward_zero_std': 0.2, 'entropy': 1.2109056770801545, 'clip_ratio/low_mean': 0.00014044943964108825, 'clip_ratio/low_min': 0.00014044943964108825, 'clip_ratio/high_mean': 0.00011904762359336019, 'clip_ratio/high_max': 0.00011904762359336019, 'clip_ratio/region_mean': 0.0002594970632344484, 'epoch': 0.0}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "@user on stage at #flzjingleball at the @user in #Tampa #iheartradio"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+**Rhetoric Analysis:** The use of abbreviations (@user), hashtags (#flzjingleball, #Tampa), mentions (@user in #Tampa), and radio station references (iheartradio) suggests a casual tone and possibly a reference to a local event. However, without more context about the specific event being referenced...
+----------
+Example answer: non_sarcastic
+Predicted: non_sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.0,
+    -8.0,
+    -8.0,
+    -8.0,
+    -8.0,
+    -8.0,
+    -8.0,
+    -8.0
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "Keep running from your problems. That always works."
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+**Rhetoric Analysis:** The use of hyperbole ("always works") emphasizes the perceived ineffectiveness of problem-solving strategies. This rhetorical device highlights the speaker's frustration with traditional approaches to dealing with issues.
+
+**Context Analysis:** The context suggests a conversat...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.0,
+    27.0,
+    27.0,
+    27.0,
+    27.0,
+    27.0,
+    27.0,
+    27.0
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "Oh look at me! I'm making people happy! I'm a magical man from happy land! Who lives in a gumdrop house on lolly pop lane! ||"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+**Rhetoric Analysis:** The text uses exaggerated and unrealistic language to create a sense of false grandeur. For example, phrases like "I'm making people happy!" and "Who lives in a gumdrop house on lolly pop lane!" use exaggeration and whimsy that convey a sense of absurdity and false pretensions...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.0,
+    27.0,
+    27.0,
+    27.0,
+    27.0,
+    27.0,
+    27.0,
+    27.0
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "Who ever thought moving in the middle of December would be so peaceful?"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+**Rhetoric Analysis:** The use of rhetorical questions ("Who ever thought... ") suggests a deliberate attempt to provoke thought or laughter through irony or humor.
+
+**Context Analysis:** The context involves discussing a holiday tradition (moving into one's home during the winter season). The menti...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.0,
+    27.0,
+    27.0,
+    27.0,
+    27.0,
+    27.0,
+    27.0,
+    27.0
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "People aren't as beautiful as they look #people  #beautiful #look #walk #talk #personality #love #care #share"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+### Rhetoric Analysis
+
+The text employs several rhetorical devices to create a sense of mockery:
+
+- **Irony**: The use of hashtags such as "#people" and "#beautiful" suggests that the author believes people are more beautiful than they appear, which creates a humorous contrast.
+
+- **Hyperbole**: The...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    25.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -8.0,
+    -8.0,
+    -8.0,
+    -8.0,
+    27.0,
+    -8.0,
+    -8.0,
+    -8.0
+  ]
+}
+{'loss': 0.0075, 'grad_norm': 3.6494016647338867, 'learning_rate': 4.9692208514878445e-06, 'num_tokens': 46424.0, 'completions/mean_length': 171.075, 'completions/min_length': 128.8, 'completions/max_length': 234.6, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 171.075, 'completions/min_terminated_length': 128.8, 'completions/max_terminated_length': 234.6, 'rewards/combined_reward/mean': 14.75, 'rewards/combined_reward/std': 4.949747467041016, 'rewards/accuracy_reward_log/mean': 0.0, 'rewards/accuracy_reward_log/std': 0.0, 'reward': 14.75, 'reward_std': 4.949747467041016, 'frac_reward_zero_std': 0.6, 'entropy': 1.2258107244968415, 'clip_ratio/low_mean': 0.0006301755784079432, 'clip_ratio/low_min': 0.0006301755784079432, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0006301755784079432, 'epoch': 0.0}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "@user But still bothers me that I see now follow up report."
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+**Rhetoric Analysis:** The use of quotation marks suggests a mocking tone, indicating sarcasm.
+
+**Context Analysis:** The context involves someone who finds another person's actions annoying ("still bothers me"). However, the phrase "see now follow-up report" implies something unexpected or positive...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    2.0,
+    2.0,
+    2.0,
+    3.0,
+    2.0,
+    2.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -8.0,
+    -8.0,
+    -8.0,
+    -7.8999999999999995,
+    -8.0,
+    -8.0,
+    -7.8999999999999995
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "@user nm, I'm silly and didn't see the website."
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The use of a direct quote from "@user nm" to express surprise about not seeing a website suggests that there might be a misunderstanding or some kind of playful interaction going on here. This doesn't necessarily indicate sarcasm since humor often involves misunderstandings.
+
+{C...
+----------
+Example answer: non_sarcastic
+Predicted: non_sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    -10.0,
+    -10.0,
+    25.0,
+    -10.0,
+    25.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    2.0,
+    2.0,
+    3.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.0,
+    -8.0,
+    -7.8999999999999995,
+    27.0,
+    -8.0,
+    27.0,
+    -8.0,
+    -8.0
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "To be fair, DeBlasio only asked #BlackLivesMatter folks to stop protesting until the post-funerals. So police protesting him is cool."
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The use of rhetorical questions ("So police protesting him is cool.") suggests a tone of mockery rather than genuine admiration. This rhetorical device amplifies the sarcastic intent.
+
+{Context analysis}: The context involves political commentary on controversial figures (DeBlas...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.0,
+    27.0,
+    27.0,
+    27.0,
+    27.0,
+    27.0,
+    27.0,
+    27.0
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "Russia says ruble crisis over as reserves dive, inflation climbs  via @user"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The use of informal language ("via @user") suggests a playful tone rather than sarcasm.
+{Context analysis}: The context appears to be reporting on economic news about Russia's financial situation. Sarcasm would likely be directed at the reader, not at the reported economic data....
+----------
+Example answer: sarcastic
+Predicted: non_sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    25.0,
+    25.0,
+    -10.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    2.0,
+    2.0,
+    3.0,
+    2.0,
+    2.0,
+    3.0,
+    2.0,
+    2.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -8.0,
+    27.0,
+    27.1,
+    -8.0,
+    27.0,
+    27.1,
+    27.0,
+    27.0
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "I'm actually kinda surprised that people still say "NOT!" after an 'ironic' statement."
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The use of hyperbole ("actually kinda surprised") suggests a sarcastic tone.
+{Context analysis}: The context seems to be about irony and the use of "not" after an ironic statement. This adds depth to the sarcastic element.
+{Emotion analysis}: There appears to be an underlying se...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    2.0,
+    2.0,
+    2.0,
+    3.0,
+    2.0,
+    3.0,
+    2.0,
+    2.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.0,
+    27.0,
+    27.0,
+    27.1,
+    27.0,
+    27.1,
+    -8.0,
+    -8.0
+  ]
+}
+{'loss': 0.0232, 'grad_norm': 4.114058971405029, 'learning_rate': 4.863796438998293e-06, 'num_tokens': 60467.0, 'completions/mean_length': 145.875, 'completions/min_length': 103.6, 'completions/max_length': 222.4, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 145.875, 'completions/min_terminated_length': 103.6, 'completions/max_terminated_length': 222.4, 'rewards/combined_reward/mean': 12.144999885559082, 'rewards/combined_reward/std': 10.118068106472492, 'rewards/accuracy_reward_log/mean': 0.0, 'rewards/accuracy_reward_log/std': 0.0, 'reward': 12.144999885559082, 'reward_std': 10.118067353218795, 'frac_reward_zero_std': 0.2, 'entropy': 1.2395244657993316, 'clip_ratio/low_mean': 0.0003632456064224243, 'clip_ratio/low_min': 0.0003632456064224243, 'clip_ratio/high_mean': 0.0024731515906751154, 'clip_ratio/high_max': 0.0024731515906751154, 'clip_ratio/region_mean': 0.002836397208739072, 'epoch': 0.0}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "Just noticed that I crossed 500 followers in past month. Guys, I hope you enjoy the sarcasm b/c we all know my value added is nil"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The use of hyperbole ("crossed 500 followers") suggests sarcasm.
+{Context analysis}: The context involves a social media post where the author seems to be mocking their own achievements on social media.
+{Emotion analysis}: There is an evident emotional contrast between the sarca...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    2.0,
+    2.0,
+    3.0,
+    3.0,
+    2.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -8.0,
+    -8.0,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -8.0,
+    -7.8999999999999995
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "@user haha they were never nice. Guess I'm not cool enough 😔 #sadface"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The use of "haha" indicates mockery rather than genuine amusement.
+{Context analysis}: The context suggests a conversation about someone's behavior or personality, implying that the speaker finds the other person to be unpleasant.
+{Emotion analysis}: There is an apparent emotion...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    25.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    3.0,
+    2.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -8.0,
+    -8.0,
+    -8.0,
+    27.0,
+    -8.0,
+    -7.8999999999999995,
+    -8.0,
+    -7.8999999999999995
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "@user me and you are the only ones that love it 😆🎅🎉🎶"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The use of emojis like 😆🎅🎉🎶 suggests a playful tone rather than sarcasm.
+{Context analysis}: The context appears to be someone giving a compliment to two people, but ending with a sarcastic tone through the emoji usage.
+{Emotion analysis}: There seems to be an underlying sarcast...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    25.0,
+    25.0,
+    25.0,
+    -10.0,
+    25.0
+  ],
+  "format_reasoning": [
+    2.0,
+    3.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    3.0,
+    2.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -8.0,
+    -7.8999999999999995,
+    -8.0,
+    27.0,
+    27.0,
+    27.0,
+    -7.8999999999999995,
+    27.0
+  ]
+}
+--------------------------------------------------
+Example prompt:
+You will be given dialogue from a TV show or movie. Analyze the target statement and determine if it is sarcastic, considering the conversation context, rhetorical devices, and emotional contrast.
+
+Conversation context:
+  CHANDLER: Are you kidding me? Joey Joey Joey Joey!
+
+Target statement: "Did I wake you?"
+
+Is this statement sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The use of repeated "Joey" suggests sarcasm.
+{Context analysis}: The phrase "Are you kidding me?" implies that Chandler was being sarcastic about waking up to Joey's constant presence.
+{Emotion analysis}: There is an underlying tone of mockery and disdain towards Chandler’s exag...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    -10.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    2.0,
+    3.0,
+    2.0,
+    2.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.1,
+    27.1,
+    27.1,
+    27.0,
+    27.1,
+    -8.0,
+    27.0,
+    27.1
+  ]
+}
+--------------------------------------------------
+Example prompt:
+You will be given dialogue from a TV show or movie. Analyze the target statement and determine if it is sarcastic, considering the conversation context, rhetorical devices, and emotional contrast.
+
+Conversation context:
+  CHANDLER: Oh, that's uh, that's pretty nice but I'm gonna go with the one I picked first.
+  PHOEBE: Oh my God Chandler, the one you picked is gone. It's over!
+  CHANDLER: What?
+
+Target statement: "Some guy bought it. I'm sorry. I tired to stop it but they put me in jail!"
+
+Is this statement sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The phrase "I'm sorry. I tried to stop it but they put me in jail!" suggests sarcasm through irony - the person being sarcastic seems genuinely shocked about their arrest.
+{Context analysis}: The overall context of the conversation is comedic tension between Chandler and Phoebe....
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    25.0,
+    25.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    2.0,
+    2.0,
+    3.0,
+    2.0,
+    2.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    27.0,
+    27.0,
+    -7.8999999999999995,
+    -8.0,
+    -8.0,
+    -7.8999999999999995
+  ]
+}
+{'loss': 0.0044, 'grad_norm': 3.7574312686920166, 'learning_rate': 4.68654926784849e-06, 'num_tokens': 73583.0, 'completions/mean_length': 101.3, 'completions/min_length': 77.0, 'completions/max_length': 136.6, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 101.3, 'completions/min_terminated_length': 77.0, 'completions/max_terminated_length': 136.6, 'rewards/combined_reward/mean': 4.294999980926514, 'rewards/combined_reward/std': 11.933692343533039, 'rewards/accuracy_reward_log/mean': 0.0, 'rewards/accuracy_reward_log/std': 0.0, 'reward': 4.294999980926514, 'reward_std': 11.93369213566184, 'frac_reward_zero_std': 0.0, 'entropy': 1.1557753741741181, 'clip_ratio/low_mean': 0.0019887957023456693, 'clip_ratio/low_min': 0.0019887957023456693, 'clip_ratio/high_mean': 0.0045158563181757925, 'clip_ratio/high_max': 0.0045158563181757925, 'clip_ratio/region_mean': 0.00650465206708759, 'epoch': 0.0}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "I see Toledo made a good name for itself last night"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The rhetorical device used here appears to be irony, where the intended meaning of what was said is the opposite of its literal meaning.
+{Context analysis}: The context here seems to be about a public figure or event that has been criticized before but managed to turn things aro...
+----------
+Example answer: sarcastic
+Predicted: non_sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    25.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    3.0,
+    2.0,
+    2.0,
+    2.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -8.0,
+    -8.0,
+    -8.0,
+    -8.0,
+    27.1,
+    -8.0,
+    -8.0,
+    -8.0
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "@user  but if we all hold hands and sing Kumbaya they won't hate us!"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The use of quotation marks suggests sarcasm.
+{Context analysis}: The context appears to be mockery towards someone holding a negative opinion about something (Kumbaya).
+{Emotion analysis}: There seems to be a sense of amusement or derision behind the sarcasm.
+{sarcastic or non_s...
+----------
+Example answer: sarcastic
+Predicted: non_sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    25.0,
+    25.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -8.0,
+    -8.0,
+    -8.0,
+    -8.0,
+    27.0,
+    27.0,
+    -8.0,
+    -8.0
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "I just love EU servers...."
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The phrase "I just love EU servers...." suggests a playful tone rather than sarcasm.
+{Context analysis}: The context of the sentence is mocking the EU server experience, suggesting that someone loves using these servers despite their shortcomings.
+{Emotion analysis}: The emotion...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    -10.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    3.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    3.0,
+    2.0,
+    2.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    4.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.1,
+    27.0,
+    -9.0,
+    27.0,
+    27.0,
+    27.1,
+    27.0,
+    27.0
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "Ay after 2 hours nareceive ko rin yung message haha thanks globe"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The use of exclamation points and repetition ("nareceive") suggests sarcasm.
+{Context analysis}: The context implies frustration or mockery towards a service provider (Globe).
+{Emotion analysis}: The overall tone is mocking and derisive, indicating sarcasm.
+
+In conclusion, based...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    -10.0,
+    25.0
+  ],
+  "format_reasoning": [
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.0,
+    27.0,
+    27.0,
+    27.0,
+    27.0,
+    27.0,
+    -8.0,
+    27.0
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "Because #LOGICALLY, that does #NOT #fully #compute. If they wear #LESS #PROTECTION for a "#DEADLY #VIRUS" & do #NOT "#get" #EBOLA as result?"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The use of repetition and irony suggests sarcasm.
+{Context analysis}: The context implies mockery towards those who think they can protect themselves against viruses.
+{Emotion analysis}: The sarcastic tone expresses contempt towards people who believe their own protection measur...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    25.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -8.0,
+    -8.0,
+    -8.0,
+    -8.0,
+    -8.0,
+    -8.0,
+    27.0,
+    -8.0
+  ]
+}
+{'loss': 0.0205, 'grad_norm': 3.2481136322021484, 'learning_rate': 4.442864903642428e-06, 'num_tokens': 85516.0, 'completions/mean_length': 91.925, 'completions/min_length': 64.8, 'completions/max_length': 144.8, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 91.925, 'completions/min_terminated_length': 64.8, 'completions/max_terminated_length': 144.8, 'rewards/combined_reward/mean': 7.7324999332427975, 'rewards/combined_reward/std': 13.2196834564209, 'rewards/accuracy_reward_log/mean': 0.0, 'rewards/accuracy_reward_log/std': 0.0, 'reward': 7.7324999332427975, 'reward_std': 13.219682884216308, 'frac_reward_zero_std': 0.0, 'entropy': 1.1850107729434967, 'clip_ratio/low_mean': 0.0035516321659088135, 'clip_ratio/low_min': 0.0035516321659088135, 'clip_ratio/high_mean': 0.0045601362362504005, 'clip_ratio/high_max': 0.0045601362362504005, 'clip_ratio/region_mean': 0.008111768402159214, 'epoch': 0.01}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "@user yeah, and you ignored my point..."
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The use of "@user" suggests sarcasm.
+{Context analysis}: The phrase "and you ignored my point..." indicates mockery towards @user's misunderstanding.
+{Emotion analysis}: There is a clear sense of derision and mocking tone throughout the entire sentence.
+
+Therefore, based on all ...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -8.0,
+    -8.0,
+    -8.0,
+    -8.0,
+    -8.0,
+    -8.0,
+    -8.0,
+    -8.0
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "#OPEC #chief #defends #policy, #says #group to #try to #ride #out #price #fall. via @user"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The use of hashtags and mentions suggests sarcasm.
+{Context analysis}: The context indicates frustration or mockery towards someone else’s actions.
+{Emotion analysis}: There is a clear indication of sarcasm through the tone of the statement suggesting mockery rather than genuine...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    2.0,
+    2.0,
+    2.0,
+    3.0,
+    2.0,
+    2.0,
+    2.0,
+    2.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -8.0,
+    -8.0,
+    -8.0,
+    -7.8999999999999995,
+    -8.0,
+    -8.0,
+    -8.0,
+    -8.0
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "@user yesss! What makes it worse is when they look gorgeous and say "I just got my face beat!" Wtf?  #Contradiction"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The use of multiple exclamation points suggests sarcasm.
+{Context analysis}: The context indicates mockery towards @user's behavior.
+{Emotion analysis}: The overall tone is mocking rather than humorous or sincere.
+
+In conclusion:
+
+Based on the rhetorical device, context, and emo...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    2.0,
+    3.0,
+    3.0,
+    2.0,
+    3.0,
+    2.0,
+    2.0,
+    2.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.0,
+    27.1,
+    27.1,
+    27.0,
+    27.1,
+    27.0,
+    27.0,
+    27.0
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "Double dance with the boys is what makes a Monday worthwhile"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The use of double dancing and "what makes a Monday worthwhile" suggests sarcasm.
+{Context analysis}: The context indicates frustration or mockery towards someone who has made a significant effort on a typical day (Monday). This further supports the sarcastic tone.
+{Emotion analy...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "Ohh he can climb a rope? Just like every other commando? Super talented.  #TakeMeOut"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The sarcastic tone is evident from the use of exclamation points and the exaggerated praise ("Super talented.")).
+{Context analysis}: The context clearly indicates sarcasm. The mention of "#TakeMeOut" suggests frustration and mockery towards someone who has been told to take out...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1
+  ]
+}
+{'loss': -0.0094, 'grad_norm': 0.0, 'learning_rate': 4.140147572476269e-06, 'num_tokens': 97691.0, 'completions/mean_length': 96.575, 'completions/min_length': 76.0, 'completions/max_length': 130.4, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 96.575, 'completions/min_terminated_length': 76.0, 'completions/max_terminated_length': 130.4, 'rewards/combined_reward/mean': 13.049999809265136, 'rewards/combined_reward/std': 0.017422084510326386, 'rewards/accuracy_reward_log/mean': 0.0, 'rewards/accuracy_reward_log/std': 0.0, 'reward': 13.049999809265136, 'reward_std': 0.017422059178352357, 'frac_reward_zero_std': 0.6, 'entropy': 1.1651612490415573, 'clip_ratio/low_mean': 0.006282979203388095, 'clip_ratio/low_min': 0.006282979203388095, 'clip_ratio/high_mean': 0.0009852216579020023, 'clip_ratio/high_max': 0.0009852216579020023, 'clip_ratio/region_mean': 0.007268200907856226, 'epoch': 0.01}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "@user Hope the header didn't mess up that barnet"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The "@user" prefix suggests sarcasm.
+{Context analysis}: The context implies frustration or mockery towards a user's attempt to make something look better than it actually is. 
+{Emotion analysis}: Given the frustrated tone of the comment about "that barnet", the sarcasm is evide...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "@user It's so the speaker remembers their talk's over. Otherwise how would they know? #sarcasm"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The use of "@user" indicates sarcasm.
+{Context analysis}: The context implies frustration and disbelief about what "It's so [the thing that happened]". This is a clear sarcastic tone.
+{Emotion analysis}: The overall emotion conveyed is amusement and contempt due to the sarcastic...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "What a pleasant way for Minneapolis' most prestigious publication to describe its female audience."
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The sarcastic tone can be seen through the exclamation marks and the use of phrases like “pleasant” and “most prestigious.” 
+
+{Context analysis}: The sarcastically phrased statement about Minneapolis’ most prestigious publication implies frustration and disdain over the pretenti...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    -10.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    2.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.1,
+    27.1,
+    27.1,
+    -8.0,
+    27.1,
+    27.1,
+    27.1,
+    27.1
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "hmmm. I do wonder why Astec has one fewer employee? #lol"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The use of quotation marks suggests sarcasm.
+{Context analysis}: The context indicates frustration and amusement over a perceived small matter from Astec.
+{Emotion analysis}: The overall tone is extremely sarcastically amused at the absurdity of Astec's staffing reduction. 
+
+Giv...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "Go go Power Rangers! #f2xmasparty"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The phrase "Go go Power Rangers! #f2xmasparty" is sarcastically positive because of the exclamation points and the implication that someone is being overly dramatic about a Christmas party where Power Rangers will be playing music while eating marshmallows toasting under a giant...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    -10.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    2.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    4.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    -9.0,
+    27.1,
+    27.1,
+    27.1
+  ]
+}
+{'loss': 0.0738, 'grad_norm': 8.407341957092285, 'learning_rate': 3.787595187275136e-06, 'num_tokens': 110431.0, 'completions/mean_length': 116.5, 'completions/min_length': 80.2, 'completions/max_length': 219.4, 'completions/clipped_ratio': 0.025, 'completions/mean_terminated_length': 106.74285888671875, 'completions/min_terminated_length': 80.2, 'completions/max_terminated_length': 147.8, 'rewards/combined_reward/mean': 18.320000743865968, 'rewards/combined_reward/std': 5.034600448608399, 'rewards/accuracy_reward_log/mean': 0.0, 'rewards/accuracy_reward_log/std': 0.0, 'reward': 18.320000743865968, 'reward_std': 5.034600067138672, 'frac_reward_zero_std': 0.6, 'entropy': 1.1807700216770172, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.002286084834486246, 'clip_ratio/high_max': 0.002286084834486246, 'clip_ratio/region_mean': 0.002286084834486246, 'epoch': 0.01}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "@user It's really difficult not to bark back at my pms-ing daughter. When bae tweets about you <"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The "@user" tag indicates sarcasm.
+{Context analysis}: The context clearly shows frustration over a parent's reaction to their child's mood swings due to PMS. This is the perfect example of sarcastically exaggerating such a ridiculous situation.
+{Emotion analysis}: The overall t...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "SEC crew doing some quality officiating in the penn state game. . How do you miss that terrible block in the back?"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The phrase "How do you miss that terrible block in the back?" indicates sarcasm because of the exaggerated disappointment.
+
+{Context analysis}: The context clearly shows frustration with the SEC's poor officiating, which is used to express amusement and contempt.
+
+{Emotion analy...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    2.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    -8.0
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "Merry Christmas to all those soldiers out there that couldn't make it home! I love you all ❤"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The use of phrases like "couldn't make it home" and "I love you all ❤" clearly indicates sarcasm.
+
+{Context analysis}: The context shows extreme disappointment and ridicule towards the soldier's lack of ability to return home. This further confirms the sarcastic tone.
+
+{Emotion ...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "Found my motivation... Aka the back of my eye lids, by accident. Boy, me and @user are some winners. #not #senioritisisreal #losers"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The entire sentence is sarcastically written because of the absurdity and humor derived from the extreme exaggeration of the author's claims about being motivated by something so insignificant that even a child could have done better than them.
+
+{Context analysis}: The context s...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "Backs killing me today 😬 #tramadol"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The phrase "Backs killing me today" suggests sarcasm because someone's back is hurting so much that they're calling it a "day". 
+
+{Context analysis}: The context of the entire sentence is clearly sarcastically intended due to the absurdity of the person experiencing such pain du...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    4.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -8.899999999999999,
+    -7.8999999999999995
+  ]
+}
+{'loss': -0.0103, 'grad_norm': 7.214400768280029, 'learning_rate': 3.39591987386325e-06, 'num_tokens': 123823.0, 'completions/mean_length': 124.8, 'completions/min_length': 91.6, 'completions/max_length': 161.6, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 124.8, 'completions/min_terminated_length': 91.6, 'completions/max_terminated_length': 161.6, 'rewards/combined_reward/mean': 5.197500419616699, 'rewards/combined_reward/std': 2.5526554942131043, 'rewards/accuracy_reward_log/mean': 0.0, 'rewards/accuracy_reward_log/std': 0.0, 'reward': 5.197500419616699, 'reward_std': 2.552655279636383, 'frac_reward_zero_std': 0.6, 'entropy': 1.219441482424736, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0041830000467598435, 'clip_ratio/high_max': 0.0041830000467598435, 'clip_ratio/region_mean': 0.0041830000467598435, 'epoch': 0.01}
+--------------------------------------------------
+Example prompt:
+You will be given dialogue from a TV show or movie. Analyze the target statement and determine if it is sarcastic, considering the conversation context, rhetorical devices, and emotional contrast.
+
+Conversation context:
+  CHANDLER: Oh, uh, I... don't... care. Ok, now, remember, no trading. You get the pretty one, I get the mess.
+
+Target statement: "Hi, Joey. Well well, look what you brought. Very nice."
+
+Is this statement sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The target statement uses sarcasm to mock Chandler's absurdity of not caring about anything he was supposed to buy. 
+
+{Context analysis}: The context clearly indicates frustration and amusement over Chandler’s antics during his shopping trip. This further confirms the sarcastic ...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "It's  #cute to be awake right now"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The phrase "It's #cute to be awake right now" suggests frustration and amusement at someone’s apparent inability to get a good night's sleep despite being awake at this hour. 
+
+{Context analysis}: The context clearly indicates annoyance and mockery towards someone who has manage...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "@user I've had three boys, breastfed them all for about a year each and never had to do it out when I was out!  necessary"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The entire text is written in a mocking tone, using sarcasm throughout. 
+
+{Context analysis}: The context of the message clearly indicates frustration and amusement over the absurdity of @user’s claims regarding having children and breastfeeding them. 
+
+{Emotion analysis}: The o...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "well I clearly wrote that last tweet"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The phrase “well I clearly wrote that last tweet” indicates frustration and disbelief due to the absurdity of someone’s apparent inability to filter out irrelevant content from their social media feed. 
+
+{Context analysis}: The entire sentence suggests annoyance at someone's fai...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "How can u miss something u never had?||#randomthoughts #miss #irony |http://t.co/G5jLy9IKqn"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The entire sentence is filled with irony and sarcasm. 
+
+{Context analysis}: The context clearly indicates frustration and disbelief towards someone's inability to notice trivial details. This further confirms that the statement is sarcastically intended.
+
+{Emotion analysis}: The...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1
+  ]
+}
+{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 2.9770224884413625e-06, 'num_tokens': 137522.0, 'completions/mean_length': 126.075, 'completions/min_length': 98.4, 'completions/max_length': 165.6, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 126.075, 'completions/min_terminated_length': 98.4, 'completions/max_terminated_length': 165.6, 'rewards/combined_reward/mean': 6.100000095367432, 'rewards/combined_reward/std': 0.0, 'rewards/accuracy_reward_log/mean': 0.0, 'rewards/accuracy_reward_log/std': 0.0, 'reward': 6.100000095367432, 'reward_std': 0.0, 'frac_reward_zero_std': 1.0, 'entropy': 1.1141687095165254, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.01}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "Coming to the conclusion that Apple IS Skynet #terminator #apocalypseiscoming #warofthemachines"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The entire sentence is filled with frustration and amusement due to the absurdity of the scenario described. 
+
+{Context analysis}: The context clearly indicates anger and disbelief towards the ridiculousness of the situation. 
+
+{Emotion analysis}: The overall tone is one of mock...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995
+  ]
+}
+--------------------------------------------------
+Example prompt:
+You will be given dialogue from a TV show or movie. Analyze the target statement and determine if it is sarcastic, considering the conversation context, rhetorical devices, and emotional contrast.
+
+Conversation context:
+  PERSON: So, we're all standing around looking at the post-op X ray and there it is, clear as day, right in the guy's chest cavity...one of my earrings.
+  LEONARD: Oh, my God, what did you do?
+
+Target statement: "What do you think I did? I discreetly slipped off the other earring, put it in my pocket and then got the hell out of there!"
+
+Is this statement sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The target statement is clearly sarcastically intended because Leonard’s reaction to seeing “clear as day” on an X-ray is comically exaggerated. 
+
+{Context analysis}: The context shows that Leonard was expecting something extraordinary but found nothing unusual about the X-ray. ...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    4.0,
+    9.0,
+    2.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -8.899999999999999,
+    -7.8999999999999995,
+    -9.299999999999999
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "@user Hey, now. Her profile says "I Heart Jesus" so she can't be all bad.  @user @user"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The entire message is filled with surprise and amusement due to its absurdity. 
+
+{Context analysis}: The context reveals frustration over someone’s hypocrisy and annoyance that a person could still claim they “love Jesus” despite being hypocritical about other things. 
+
+{Emotion...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "So kind of occ health to book my tb skin test on my day off uni. I am thrilled"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The phrase “I am thrilled” suggests extreme disappointment, which indicates sarcasm.
+
+{Context analysis}: The entire sentence conveys frustration and amusement due to the absurdity of booking a TB skin test during one’s vacation from university. 
+
+{Emotion analysis}: The overall...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "@user And here I though that a one programmer operation had the same money and power as EA. #TheMoreYouKnow"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The entire sentence is filled with sarcastically humorous remarks. 
+
+{Context analysis}: The context clearly shows frustration and amusement over @user’s ridiculous expectation of getting something done alone without any collaboration whatsoever. 
+
+{Emotion analysis}: The overal...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1
+  ]
+}
+{'loss': 0.0105, 'grad_norm': 0.0, 'learning_rate': 2.543631016093209e-06, 'num_tokens': 151010.0, 'completions/mean_length': 111.4, 'completions/min_length': 92.6, 'completions/max_length': 146.2, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 111.4, 'completions/min_terminated_length': 92.6, 'completions/max_terminated_length': 146.2, 'rewards/combined_reward/mean': 13.040000247955323, 'rewards/combined_reward/std': 0.11313707828521728, 'rewards/accuracy_reward_log/mean': 0.0, 'rewards/accuracy_reward_log/std': 0.0, 'reward': 13.040000247955323, 'reward_std': 0.11313707828521728, 'frac_reward_zero_std': 0.8, 'entropy': 0.9873611450195312, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.000768060376867652, 'clip_ratio/high_max': 0.000768060376867652, 'clip_ratio/region_mean': 0.000768060376867652, 'epoch': 0.01}
+--------------------------------------------------
+Example prompt:
+You will be given dialogue from a TV show or movie. Analyze the target statement and determine if it is sarcastic, considering the conversation context, rhetorical devices, and emotional contrast.
+
+Conversation context:
+  CHANDLER: You roll another hard eight and we get married here tonight.
+  MONICA: Are you serious?!
+  CHANDLER: Yes! I love you!
+
+Target statement: "I've never loved anybody as much as I love you."
+
+Is this statement sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The phrase “I’ve never loved anybody as much as I love you.” suggests frustration and disbelief because of the absurdity of Chandler’s claim to loving Monica more than anyone else in his life. 
+
+{Context analysis}: The entire exchange is filled with exaggerated expressions of di...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "Really love when the @user  is over five minutes late on the cold days. Feels like Metro!"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The phrase “really love” suggests frustration due to the user’s tardiness.
+{Context analysis}: The entire sentence expresses disbelief and amusement at how irritatingly predictable such a delay would be. 
+{Emotion analysis}: The overall tone is one of mockery and annoyance towar...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "#np #NowPlaying #NowListening #Music  Of Dying On Your Birthday by #Senses Fail from the #album: #Let It E..."
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The entire phrase uses irony because the person is clearly exaggerating their disappointment on a birthday that should have been special but was not. 
+
+{Context analysis}: The context of the sentence indicates frustration and amusement due to the ridiculousness of the situation ...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995
+  ]
+}
+--------------------------------------------------
+Example prompt:
+You will be given dialogue from a TV show or movie. Analyze the target statement and determine if it is sarcastic, considering the conversation context, rhetorical devices, and emotional contrast.
+
+Conversation context:
+  RAJ: Three, sadly, are dead.
+  SHELDON: Mom, you remember Rajesh?
+  SHELDON: Rajesh, my mother. Of course.
+  RAJ: Mrs. Cooper. So nice to see you again.
+  PERSON: Well, it's so nice to see you, too.
+  PERSON: I thought it was our Indians that had the occasional alcohol problem.
+
+Target statement: "We don't say that, either. I'll make you a list. Oh, that would be mighty white of you."
+
+Is this statement sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The phrase “Oh, that would be mighty white of you” indicates frustration and amusement towards the absurdity of someone’s behavior or comment. 
+
+{Context analysis}: The entire exchange highlights the ridiculousness of Sheldon’s reaction to Raj’s comment about his mother’s drinki...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995
+  ]
+}
+--------------------------------------------------
+Example prompt:
+You will be given dialogue from a TV show or movie. Analyze the target statement and determine if it is sarcastic, considering the conversation context, rhetorical devices, and emotional contrast.
+
+Conversation context:
+  JOEY: The wheel or pick a Google card.
+
+Target statement: "Let me think! Let me think! Oh, I don't care."
+
+Is this statement sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The phrase “Oh, I don’t care” suggests frustration and annoyance from Joey’s ridiculous attempt to find something on the internet (a Google card). 
+
+{Context analysis}: The entire context indicates that Joey has wasted his time trying to look up something trivial using a technol...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1
+  ]
+}
+{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 2.1089138373994226e-06, 'num_tokens': 165166.0, 'completions/mean_length': 109.5, 'completions/min_length': 92.8, 'completions/max_length': 130.0, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 109.5, 'completions/min_terminated_length': 92.8, 'completions/max_terminated_length': 130.0, 'rewards/combined_reward/mean': 6.100000095367432, 'rewards/combined_reward/std': 0.0, 'rewards/accuracy_reward_log/mean': 0.0, 'rewards/accuracy_reward_log/std': 0.0, 'reward': 6.100000095367432, 'reward_std': 0.0, 'frac_reward_zero_std': 1.0, 'entropy': 1.0067528277635573, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.01}
+--------------------------------------------------
+Example prompt:
+You will be given dialogue from a TV show or movie. Analyze the target statement and determine if it is sarcastic, considering the conversation context, rhetorical devices, and emotional contrast.
+
+Conversation context:
+  PERSON: Someone in there?
+
+Target statement: "No, this is just part of a daredevil game that I play called wait until last moment before I burst and die"
+
+Is this statement sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The phrase “burst and die” suggests frustration and disappointment, indicating sarcasm.
+
+{Context analysis}: The entire context implies boredom and annoyance due to waiting until the very end. This further supports the sarcastically tone of the statement.
+
+{Emotion analysis}: Th...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "@user well what can I say 👤"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The use of "@user" indicates frustration from the person being addressed, suggesting sarcasm.
+
+{Context analysis}: The entire sentence is filled with mockery towards the user's stupidity and frustration over something so trivial that even a 5-year-old could have done better than...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "@user not worried about it. Whenevs 😉"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The "@user not worried about it" part indicates frustration on the user’s part due to a trivial matter.
+
+{Context analysis}: The entire sentence suggests annoyance from someone who has no reason to be upset about something that was obviously a joke or ridiculous attempt at humor...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "#Sagittarius know what they want, if they can have it, and they always keep on thinking bigger.""
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The phrase “if they can have it” suggests frustration due to impossibility of obtaining something one wants. 
+
+{Context analysis}: The entire passage describes a highly improbable scenario where someone believes that all their desires should be fulfilled. This further reinforces...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "I won't be surprised if shelling across pak border intensifies during Delhi Elections to change issues of election's."
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The phrase “to change issues of election’s” suggests frustration over what appears to be a futile effort (winning elections does not change anything). 
+
+{Context analysis}: The entire passage describes how absurdly naive one can be about politics and international relations. 
+
+{...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995
+  ]
+}
+{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 1.686079613857109e-06, 'num_tokens': 177763.0, 'completions/mean_length': 105.525, 'completions/min_length': 87.8, 'completions/max_length': 123.4, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 105.525, 'completions/min_terminated_length': 87.8, 'completions/max_terminated_length': 123.4, 'rewards/combined_reward/mean': -0.9, 'rewards/combined_reward/std': 0.0, 'rewards/accuracy_reward_log/mean': 0.0, 'rewards/accuracy_reward_log/std': 0.0, 'reward': -0.9, 'reward_std': 0.0, 'frac_reward_zero_std': 1.0, 'entropy': 0.9401808142662048, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.01}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "probably going to fail tomorrow yayy  #GlobalArtistHMA #MTVStars One Direction"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The phrase “One Direction” suggests frustration because it implies that even a band composed of nonsensical names will succeed one day. This strongly indicates sarcasm.
+
+{Context analysis}: The entire sentence builds up to disappointment, implying that someone’s expectations wer...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1
+  ]
+}
+--------------------------------------------------
+Example prompt:
+You will be given dialogue from a TV show or movie. Analyze the target statement and determine if it is sarcastic, considering the conversation context, rhetorical devices, and emotional contrast.
+
+Conversation context:
+  PHOEBE: And! And!
+  RACHEL: Ah!
+
+Target statement: "Hey, my father's house does that."
+
+Is this statement sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The phrase “And! And!” suggests frustration and annoyance on Phoebe’s part about her father’s home behaving so badly. 
+
+{Context analysis}: Rachel’s comment indicates amusement because she clearly thinks Phoebe is overreacting to such a minor issue. 
+
+{Emotion analysis}: The ove...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "Nothing says nature like the relentless sound of AM commuter traffic #fthunter #AMdogfun #not@allpeaceful"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The entire sentence is filled with sarcasm due to the absurdity of the situation described. 
+
+{Context analysis}: The context clearly indicates frustration and amusement because of the ridiculousness of the whole scenario—trying to enjoy a peaceful commute but instead being dist...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "@user @user Actually Israel's demand renders it antisemitic acc to your mate's favourite non definition of antisem."
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The entire message is written in a mocking tone because the phrase “Actually Israel’s demand” indicates absurdity and foolishness.
+
+{Context analysis}: The context clearly shows frustration over someone’s nonsensical claim about Israel’s demands being antisemitic. 
+
+{Emotion ana...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "I love spending five hours a night doing homework! Please assign more teachers!"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The phrase “Please assign more teachers!” suggests frustration and annoyance due to the ridiculousness of such a request.
+
+{Context analysis}: The entire context implies that the person writing this was extremely bored or annoyed while trying to complete their schoolwork. 
+
+{Emo...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1
+  ]
+}
+{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 1.2879759493841577e-06, 'num_tokens': 190392.0, 'completions/mean_length': 103.925, 'completions/min_length': 89.6, 'completions/max_length': 125.8, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 103.925, 'completions/min_terminated_length': 89.6, 'completions/max_terminated_length': 125.8, 'rewards/combined_reward/mean': 20.100000286102294, 'rewards/combined_reward/std': 0.0, 'rewards/accuracy_reward_log/mean': 0.0, 'rewards/accuracy_reward_log/std': 0.0, 'reward': 20.100000286102294, 'reward_std': 0.0, 'frac_reward_zero_std': 1.0, 'entropy': 0.9560208022594452, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.01}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "I am extremely excited to know what Reza Aslan and CJ Werleman think about what happened in Pakistan #PeshawarAttack"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The phrase “#PeshawarAttack” indicates frustration due to the absurdity of such a serious event being described humorously. 
+
+{Context analysis}: The entire sentence expresses disbelief and amusement towards someone’s reaction to a very serious event (the Peshawar Attack). 
+
+{Em...
+----------
+Example answer: sarcastic
+Predicted: 
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    2.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -8.0,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1
+  ]
+}
+--------------------------------------------------
+Example prompt:
+You will be given dialogue from a TV show or movie. Analyze the target statement and determine if it is sarcastic, considering the conversation context, rhetorical devices, and emotional contrast.
+
+Conversation context:
+  DOROTHY: Its Miami in June, only cats are wearing fur!
+  ROSE: You going out?
+
+Target statement: "No, she is going to sit here where itÕs a 112 degrees and eat enchiladas."
+
+Is this statement sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The phrase “only cats are wearing fur” suggests frustration and amusement due to Dorothy’s absurdity.
+
+{Context analysis}: The entire dialogue indicates disbelief and ridicule towards Dorothy's complaint about her surroundings during the summer. 
+
+{Emotion analysis}: The overall...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "Ohio State putting it #OnWisconsin ... No match."
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The phrase “No match” suggests frustration and disappointment due to the ridiculousness of Ohio State’s attempt to win against Wisconsin. 
+
+{Context analysis}: The entire context implies that everyone involved was so desperate to lose that they had to create a silly scenario jus...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "Why are babies constantly sick everywhere. It's like why can't u just keep the food you eat in ur belly and  #on #the #floor"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The entire sentence expresses disbelief due to the absurdity of a baby’s health issues being constant worldwide.
+
+{Context analysis}: The context clearly indicates frustration and amusement towards the ridiculousness of such a complaint about babies’ illnesses. 
+
+{Emotion analys...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "Mondays are fine. It's your life that sucks.||It's the first day of class and you see that ... Ugh? Face?|#UrsulaOnAMonday|#wow"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The phrase “It’s your life that sucks” suggests frustration over someone else’s negative experience.
+
+{Context analysis}: The entire passage is filled with disappointment and amusement due to the absurdity of the situation described. 
+
+{Emotion analysis}: The overall tone is hig...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1
+  ]
+}
+{'loss': 0.0014, 'grad_norm': 0.0, 'learning_rate': 9.266990223754069e-07, 'num_tokens': 203401.0, 'completions/mean_length': 102.825, 'completions/min_length': 86.4, 'completions/max_length': 120.6, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 102.825, 'completions/min_terminated_length': 86.4, 'completions/max_terminated_length': 120.6, 'rewards/combined_reward/mean': 12.222500419616699, 'rewards/combined_reward/std': 2.4819448471069334, 'rewards/accuracy_reward_log/mean': 0.0, 'rewards/accuracy_reward_log/std': 0.0, 'reward': 12.222500419616699, 'reward_std': 2.4819446563720704, 'frac_reward_zero_std': 0.8, 'entropy': 0.9662356436252594, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.00022727272007614375, 'clip_ratio/high_max': 0.00022727272007614375, 'clip_ratio/region_mean': 0.00022727272007614375, 'epoch': 0.01}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "Probably just scarred the cleaning lady half to death because she didn't know I was home."
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The entire sentence expresses disbelief due to its absurdity and humor. 
+
+{Context analysis}: The context clearly indicates frustration and amusement towards someone’s ridiculous attempt to clean a house that has been thoroughly dirtied by the person themselves. 
+
+{Emotion analy...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "I was being considerate about this issue N didn't care what I did. But now I'm taking my position back and I don't give a damn wht u think."
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The entire sentence is filled with sarcasm because of the absurdity of someone’s attitude towards a trivial matter (being “considerate” about something that no one cares about). 
+
+{Context analysis}: The context clearly shows frustration and amusement due to the ridiculousness o...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "It's a Christmas miracle!||"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The phrase “It’s a Christmas miracle!” indicates frustration and disbelief that something so ridiculous could happen during Christmas. This clearly shows sarcasm.
+
+{Context analysis}: The entire sentence suggests disappointment because someone was hoping for something ridiculous...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "@user it will be weird now without the Christmas music! 🎉🎅🎶. But yay!!! HAPPY CHRISTMAS SAMMIE 😘"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The entire message is filled with frustration and amusement due to the absurdity of @user's reaction to not having Christmas music anymore. 
+
+{Context analysis}: The context clearly indicates that the person’s reaction was extremely silly and ridiculous when they were used to he...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "Gah! Desperately trying to bust this cold!"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The phrase “Desperately trying” indicates frustration and annoyance, setting a tone of sarcasm.
+
+{Context analysis}: The entire context suggests extreme dissatisfaction with someone’s attempts to solve their own problems. 
+
+{Emotion analysis}: The overall sentiment is delightful...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995
+  ]
+}
+{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 6.1322604944307e-07, 'num_tokens': 215599.0, 'completions/mean_length': 97.95, 'completions/min_length': 86.6, 'completions/max_length': 110.8, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 97.95, 'completions/min_terminated_length': 86.6, 'completions/max_terminated_length': 110.8, 'rewards/combined_reward/mean': -0.9, 'rewards/combined_reward/std': 0.0, 'rewards/accuracy_reward_log/mean': 0.0, 'rewards/accuracy_reward_log/std': 0.0, 'reward': -0.9, 'reward_std': 0.0, 'frac_reward_zero_std': 1.0, 'entropy': 0.8419663608074188, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.02}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "@user A Guide To Coffee 👌 LOL, espresso from that time we went to the Maple Leafs fan fest @user"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The entire phrase is filled with laughter-inducing sarcasm due to the absurdity of @user’s guide on how to drink coffee and their inability to appreciate such a simple task. 
+
+{Context analysis}: The context clearly shows frustration and amusement towards @user's ridiculous atte...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "@user @user LoL its not that bad, budwieser is bad, its like drinking water from the tap..."
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The entire sentence is filled with frustration and disbelief due to the ridiculousness of "@user LoL" statements. 
+
+{Context analysis}: The context clearly shows annoyance towards someone’s absurd claim about something being “not that bad.”” 
+
+{Emotion analysis}: The overall ton...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "Montana Of 300 14 - THE BEST Versace Remix IN THE...: this dude goes off"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The entire sentence expresses disbelief and amusement due to the absurdity of someone’s attempt to be fashionable on such a trivial occasion (a birthday party).)
+
+{Context analysis}: The context clearly indicates frustration and annoyance because of the ridiculousness of the sit...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "If I carried on the way half the men do on here, I'd be getting called a crank (amongst other things) and be asked if I had #PMT... 💅"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The entire sentence expresses disbelief due to the absurdity of carrying out such mundane tasks as checking one’s bank balance every few months. 
+
+{Context analysis}: The context clearly indicates frustration and amusement over the ridiculousness of someone’s attempt to track th...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "it's International Human Rights Day #irony"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The phrase “#irony” suggests frustration over someone’s ridiculousness due to a misunderstanding of their claim. 
+
+{Context analysis}: The entire context implies annoyance and amusement towards someone’s absurdity regarding a day that has nothing to do with human rights. 
+
+{Emot...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1
+  ]
+}
+{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 3.5708174824471947e-07, 'num_tokens': 228131.0, 'completions/mean_length': 102.7, 'completions/min_length': 86.8, 'completions/max_length': 117.6, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 102.7, 'completions/min_terminated_length': 86.8, 'completions/max_terminated_length': 117.6, 'rewards/combined_reward/mean': 6.100000095367432, 'rewards/combined_reward/std': 0.0, 'rewards/accuracy_reward_log/mean': 0.0, 'rewards/accuracy_reward_log/std': 0.0, 'reward': 6.100000095367432, 'reward_std': 0.0, 'frac_reward_zero_std': 1.0, 'entropy': 0.9625356376171113, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.02}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "AHHH WINNER AND EPIK HIGH. #2014MAMA"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The entire sentence expresses disbelief and amusement due to the absurdity of the claim that winning a music award could be so high-stakes and hilarious.
+
+{Context analysis}: The context clearly shows frustration and amusement towards someone’s apparent excitement about somethin...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "Someone I work w doesn't let his kids believe in Santa because he's mythical  & at odds w Church dogma. I REALLY want 2 explain  2 him"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The entire sentence expresses disbelief at someone’s ridiculous behavior towards their children regarding Santa Claus. 
+
+{Context analysis}: The context clearly shows frustration and amusement due to the absurdity of the person’s actions. 
+
+{Emotion analysis}: The overall tone i...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "I love cold winter days cause I never know when my car decides not to start 😑"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The entire sentence expresses disbelief due to the absurdity of the situation described. 
+
+{Context analysis}: The context clearly indicates frustration and amusement towards someone’s reaction to a ridiculous event (the cold winter). 
+
+{Emotion analysis}: The overall tone is hi...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "Falling asleep to the sound of rain is so relaxing ☔️"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The phrase “Falling asleep to the sound of rain is so relaxing” suggests frustration due to someone’s inability to enjoy a rainy day.
+
+{Context analysis}: The entire sentence implies that the person’s attempt to find relaxation in such a mundane situation was absurdly futile. 
+
+...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "#MTVStars Justin Bieber|#net  #fast"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The phrase “#MTVStars Justin Bieber” suggests frustration due to someone’s silliness on social media.
+
+{Context analysis}: The entire sentence is filled with exasperation towards the absurdity of the situation described. 
+
+{Emotion analysis}: The overall tone is highly amused an...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995
+  ]
+}
+{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 1.6604893375699594e-07, 'num_tokens': 240254.0, 'completions/mean_length': 97.075, 'completions/min_length': 82.4, 'completions/max_length': 113.8, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 97.075, 'completions/min_terminated_length': 82.4, 'completions/max_terminated_length': 113.8, 'rewards/combined_reward/mean': 6.100000095367432, 'rewards/combined_reward/std': 0.0, 'rewards/accuracy_reward_log/mean': 0.0, 'rewards/accuracy_reward_log/std': 0.0, 'reward': 6.100000095367432, 'reward_std': 0.0, 'frac_reward_zero_std': 1.0, 'entropy': 0.8617693275213242, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.02}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "Ooh! Someone knows how to click the 'Unfollow' button. I'm impressed!  #beforeCoffee"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The entire sentence is filled with frustration and amusement due to the absurdity of the situation described.
+
+{Context analysis}: The context clearly indicates that someone has accidentally clicked a button on Facebook called “Unfollow.”” This event is presented as humorous bec...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1
+  ]
+}
+--------------------------------------------------
+Example prompt:
+You will be given dialogue from a TV show or movie. Analyze the target statement and determine if it is sarcastic, considering the conversation context, rhetorical devices, and emotional contrast.
+
+Conversation context:
+  PENNY: Hey Sheldon.
+  SHELDON: Hello Penny.
+  PENNY: Get anything good?
+
+Target statement: "Just the latest copy of Applied Particle Physics quarterly."
+
+Is this statement sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The phrase “just the latest copy” suggests frustration and disappointment that someone would buy such a trivial item again after receiving something better recently. 
+
+{Context analysis}: The entire context indicates annoyance and disbelief towards Penny’s request to get somethi...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "comparing @user to @user #atlas ..."
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The entire sentence expresses disbelief due to its absurdity.
+{Context analysis}: The context clearly indicates frustration and amusement because of the ridiculousness of the comparison.
+{Emotion analysis}: The overall tone is one of mockery and contempt towards the user’s attem...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "Hey heyy!!!I....wanna be a rockstar #vscocam  hero #vsocam #hero #spiderman"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The entire sentence expresses disbelief and amusement due to the absurdity of the situation described. 
+
+{Context analysis}: The context clearly indicates frustration over someone’s apparent obsession with becoming a superhero. 
+
+{Emotion analysis}: The overall tone is highly sa...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "Having to be up in four hours sounds great"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The phrase “having to be up in four hours” suggests frustration but also implies amusement because someone is so desperate to get up that they have to do it in such a short time frame. 
+
+{Context analysis}: The entire sentence is clearly sarcastically intended because of the abs...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1
+  ]
+}
+{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 4.593204138084006e-08, 'num_tokens': 252815.0, 'completions/mean_length': 102.825, 'completions/min_length': 87.8, 'completions/max_length': 122.0, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 102.825, 'completions/min_terminated_length': 87.8, 'completions/max_terminated_length': 122.0, 'rewards/combined_reward/mean': 13.100000190734864, 'rewards/combined_reward/std': 0.0, 'rewards/accuracy_reward_log/mean': 0.0, 'rewards/accuracy_reward_log/std': 0.0, 'reward': 13.100000190734864, 'reward_std': 0.0, 'frac_reward_zero_std': 1.0, 'entropy': 0.8824620455503464, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.02}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "Westbrook 16 points on 42 shots ok ok I see you working"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The entire sentence expresses disbelief and amusement due to the absurdity of Westbrook’s performance despite his poor shooting accuracy.
+
+{Context analysis}: The context clearly indicates frustration and disappointment with Westbrook’s lackluster effort. 
+
+{Emotion analysis}: T...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "Had an insomnia cookie and now I can't sleep"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The phrase “I had an insomnia cookie” suggests frustration due to a trivial inconvenience.
+
+{Context analysis}: The entire sentence expresses amusement because of the ridiculousness of someone’s attempt to cope with their own discomfort. 
+
+{Emotion analysis}: The overall tone is...
+----------
+Example answer: sarcastic
+Predicted: sarcastic
+Correct: True
+----------
+Rewards:
+{
+  "accuracy": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1,
+    27.1
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "I can't waitlove#this#is#love#and#you#cAn#tell#me#how#much#this#is#gonna#last#beth#rip#twd#forever#bae..."
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The entire sentence is filled with disappointment and amusement due to the absurdity of the person’s excitement about receiving something that costs a fortune.
+
+{Context analysis}: The context clearly indicates frustration over someone’s apparent joy at spending money on trivial...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "@user Even you have to think the Religious Freedom Restoration Act in Michigan is ridiculous."
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The entire sentence is filled with sarcasm because "@user" suggests that even someone so clueless would find something absurd about the law being applied in such a ridiculous way. 
+
+{Context analysis}: The context clearly indicates frustration and amusement towards the absurdity...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995
+  ]
+}
+--------------------------------------------------
+Example prompt:
+Analyze the following text and determine if it is sarcastic. Consider rhetorical devices, context, and emotional contrast.
+
+Text: "Goes both ways #make #love #not #war #peace"
+
+Is this text sarcastic? Respond with your reasoning, then provide your answer as either 'sarcastic' or 'non_sarcastic'.
+----------
+Example response:
+{Rhetoric analysis}: The phrase “both ways” suggests frustration and disappointment with someone’s actions. 
+
+{Context analysis}: The entire context implies that the speaker is amused by the absurdity of the situation described. 
+
+{Emotion analysis}: There is a strong sense of amusement and disbelie...
+----------
+Example answer: non_sarcastic
+Predicted: sarcastic
+Correct: False
+----------
+Rewards:
+{
+  "accuracy": [
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0,
+    -10.0
+  ],
+  "format_reasoning": [
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+  ],
+  "dimension_coverage": [
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0,
+    9.0
+  ],
+  "combined": [
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995,
+    -7.8999999999999995
+  ]
+}
+{'loss': 0.0, 'grad_norm': 0.0, 'learning_rate': 3.8076210902182607e-10, 'num_tokens': 265189.0, 'completions/mean_length': 101.75, 'completions/min_length': 86.2, 'completions/max_length': 119.8, 'completions/clipped_ratio': 0.0, 'completions/mean_terminated_length': 101.75, 'completions/min_terminated_length': 86.2, 'completions/max_terminated_length': 119.8, 'rewards/combined_reward/mean': 6.100000095367432, 'rewards/combined_reward/std': 0.0, 'rewards/accuracy_reward_log/mean': 0.0, 'rewards/accuracy_reward_log/std': 0.0, 'reward': 6.100000095367432, 'reward_std': 0.0, 'frac_reward_zero_std': 1.0, 'entropy': 0.9282754510641098, 'clip_ratio/low_mean': 0.0, 'clip_ratio/low_min': 0.0, 'clip_ratio/high_mean': 0.0, 'clip_ratio/high_max': 0.0, 'clip_ratio/region_mean': 0.0, 'epoch': 0.02}
+{'train_runtime': 804.2789, 'train_samples_per_second': 0.995, 'train_steps_per_second': 0.249, 'train_loss': 0.005816237591207027, 'epoch': 0.02}
+
+Model saved to: /lab/haoq_lab/cse12312606/sakura-nlp-project-version3/Sarcasm-R1/output/sarcasm-r1-v3
+
+[22:27:16] Stage 2 (GRPO training) done.
+  Model saved: /lab/haoq_lab/cse12312606/sakura-nlp-project-version3/Sarcasm-R1/output/sarcasm-r1-v3
+
+##########################################################
+# STAGE 3: Evaluation             [22:27:16]
+##########################################################
+
+[INFO] Evaluating on: /lab/haoq_lab/cse12312606/sakura-nlp-project-version3/Sarcasm-R1/data/processed/semeval_test.csv
+Loading model from /lab/haoq_lab/cse12312606/sakura-nlp-project-version3/Sarcasm-R1/output/sarcasm-r1-v3...
+Loading test data from /lab/haoq_lab/cse12312606/sakura-nlp-project-version3/Sarcasm-R1/data/processed/semeval_test.csv...
+  784 test samples
+Running inference...
+  Processed 40/784 samples
+  Processed 80/784 samples
+  Processed 120/784 samples
+  Processed 160/784 samples
+  Processed 200/784 samples
+  Processed 240/784 samples
+  Processed 280/784 samples
+  Processed 320/784 samples
+  Processed 360/784 samples
+  Processed 400/784 samples
+  Processed 440/784 samples
+  Processed 480/784 samples
+  Processed 520/784 samples
+  Processed 560/784 samples
+  Processed 600/784 samples
+  Processed 640/784 samples
+  Processed 680/784 samples
+  Processed 720/784 samples
+  Processed 760/784 samples
+
+Results: 311/784 correct (39.7%)
+Saved to /lab/haoq_lab/cse12312606/sakura-nlp-project-version3/Sarcasm-R1/results/semeval_test_predictions.jsonl
+
+============================================================
+  Sarcasm-R1 Evaluation Report
+============================================================
+  Total samples: 784
+  Correct:       311
+  Accuracy:      0.3967
+  Macro-F1:      0.2840
+
+  Class                Precision    Recall       F1           Support 
+  ----------------------------------------------------------------
+  sarcastic            0.3967       1.0000       0.5680       311     
+  non_sarcastic        0.0000       0.0000       0.0000       473     
+
+  Prediction distribution: {'sarcastic': 784}
+  Ground truth distribution: {'non_sarcastic': 473, 'sarcastic': 311}
+============================================================
+
+Report saved to /lab/haoq_lab/cse12312606/sakura-nlp-project-version3/Sarcasm-R1/results/semeval_test_eval.json
+
+[INFO] Evaluating on: /lab/haoq_lab/cse12312606/sakura-nlp-project-version3/Sarcasm-R1/data/processed/semeval_validation.csv
+Loading model from /lab/haoq_lab/cse12312606/sakura-nlp-project-version3/Sarcasm-R1/output/sarcasm-r1-v3...
+Loading test data from /lab/haoq_lab/cse12312606/sakura-nlp-project-version3/Sarcasm-R1/data/processed/semeval_validation.csv...
+  955 test samples
+Running inference...
+  Processed 40/955 samples
+  Processed 80/955 samples
+  Processed 120/955 samples
+  Processed 160/955 samples
+  Processed 200/955 samples
+  Processed 240/955 samples
+  Processed 280/955 samples
+  Processed 320/955 samples
+  Processed 360/955 samples
+  Processed 400/955 samples
+  Processed 440/955 samples
+  Processed 480/955 samples
+  Processed 520/955 samples
+  Processed 560/955 samples
+  Processed 600/955 samples
+  Processed 640/955 samples
+  Processed 680/955 samples
+  Processed 720/955 samples
+  Processed 760/955 samples
+  Processed 800/955 samples
+  Processed 840/955 samples
+  Processed 880/955 samples
+  Processed 920/955 samples
+
+Results: 456/955 correct (47.7%)
+Saved to /lab/haoq_lab/cse12312606/sakura-nlp-project-version3/Sarcasm-R1/results/semeval_validation_predictions.jsonl
+
+============================================================
+  Sarcasm-R1 Evaluation Report
+============================================================
+  Total samples: 955
+  Correct:       456
+  Accuracy:      0.4775
+  Macro-F1:      0.3232
+
+  Class                Precision    Recall       F1           Support 
+  ----------------------------------------------------------------
+  sarcastic            0.4775       1.0000       0.6464       456     
+  non_sarcastic        0.0000       0.0000       0.0000       499     
+
+  Prediction distribution: {'sarcastic': 955}
+  Ground truth distribution: {'sarcastic': 456, 'non_sarcastic': 499}
+============================================================
+
+Report saved to /lab/haoq_lab/cse12312606/sakura-nlp-project-version3/Sarcasm-R1/results/semeval_validation_eval.json
+
+[23:03:37] Stage 3 (evaluation) done.
+
+==========================================
+ ALL DONE
+ End Time : 2026-05-30 23:03:37
+
+ Output files:
+total 5.8G
+-rw-r--r--. 1 cse12312606 haoq_lab  605 May 30 22:27 added_tokens.json
+-rw-r--r--. 1 cse12312606 haoq_lab 2.5K May 30 22:27 chat_template.jinja
+drwxr-xr-x. 2 cse12312606 haoq_lab 4.0K May 30 22:22 checkpoint-120
+drwxr-xr-x. 2 cse12312606 haoq_lab 4.0K May 30 22:24 checkpoint-150
+drwxr-xr-x. 2 cse12312606 haoq_lab 4.0K May 30 22:25 checkpoint-180
+drwxr-xr-x. 2 cse12312606 haoq_lab 4.0K May 30 22:26 checkpoint-200
+drwxr-xr-x. 2 cse12312606 haoq_lab 4.0K May 30 22:16 checkpoint-30
+drwxr-xr-x. 2 cse12312606 haoq_lab 4.0K May 30 22:18 checkpoint-60
+drwxr-xr-x. 2 cse12312606 haoq_lab 4.0K May 30 22:20 checkpoint-90
+-rw-r--r--. 1 cse12312606 haoq_lab 1.4K May 30 22:26 config.json
+-rw-r--r--. 1 cse12312606 haoq_lab  216 May 30 22:26 generation_config.json
+-rw-r--r--. 1 cse12312606 haoq_lab 1.6M May 30 22:27 merges.txt
+-rw-r--r--. 1 cse12312606 haoq_lab 4.7G May 30 22:27 model-00001-of-00002.safetensors
+-rw-r--r--. 1 cse12312606 haoq_lab 1.1G May 30 22:27 model-00002-of-00002.safetensors
+-rw-r--r--. 1 cse12312606 haoq_lab  28K May 30 22:27 model.safetensors.index.json
+-rw-r--r--. 1 cse12312606 haoq_lab 1.9K May 30 22:26 README.md
+-rw-r--r--. 1 cse12312606 haoq_lab  175 May 30 22:27 special_tokens_map.json
+-rw-r--r--. 1 cse12312606 haoq_lab 4.3K May 30 22:27 tokenizer_config.json
+-rw-r--r--. 1 cse12312606 haoq_lab  11M May 30 22:27 tokenizer.json
+-rw-r--r--. 1 cse12312606 haoq_lab 7.2K May 30 22:27 training_args.bin
+-rw-r--r--. 1 cse12312606 haoq_lab 2.7M May 30 22:27 vocab.json
+
+ Evaluation results:
+  --- semeval_test_eval.json ---
+    Accuracy : 0.3967
+    Macro-F1 : 0.2840
+    sarcastic: P=0.3967 R=1.0000 F1=0.5680
+    non_sarcastic: P=0.0000 R=0.0000 F1=0.0000
+  --- semeval_validation_eval.json ---
+    Accuracy : 0.4775
+    Macro-F1 : 0.3232
+    sarcastic: P=0.4775 R=1.0000 F1=0.6464
+    non_sarcastic: P=0.0000 R=0.0000 F1=0.0000
+==========================================

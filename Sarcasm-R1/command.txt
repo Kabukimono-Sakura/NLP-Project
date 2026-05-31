@@ -1,0 +1,10 @@
+cd ~/sakura-nlp-project-version3/Sarcasm-R1
+export TRANSFORMERS_NO_TF=1
+OUT_DIR=$(pwd)/output/sarcasm-r1-v3
+MODEL_DIR=$(pwd)/models/Qwen2.5-1.5B-Instruct
+python code/evaluation/inference.py --model $OUT_DIR/checkpoint-30 --base_model $MODEL_DIR --data data/processed/semeval_test.csv --output results/test_ckpt30_predictions.jsonl --batch_size 4
+python code/evaluation/evaluate.py --results results/test_ckpt30_predictions.jsonl --output results/test_ckpt30_eval.json
+python code/evaluation/inference.py --model $OUT_DIR/checkpoint-60 --base_model $MODEL_DIR --data data/processed/semeval_test.csv --output results/test_ckpt60_predictions.jsonl --batch_size 4
+python code/evaluation/evaluate.py --results results/test_ckpt60_predictions.jsonl --output results/test_ckpt60_eval.json
+python code/evaluation/inference.py --model $OUT_DIR/checkpoint-90 --base_model $MODEL_DIR --data data/processed/semeval_test.csv --output results/test_ckpt90_predictions.jsonl --batch_size 4
+python code/evaluation/evaluate.py --results results/test_ckpt90_predictions.jsonl --output results/test_ckpt90_eval.json

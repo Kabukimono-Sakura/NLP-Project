@@ -1,0 +1,27 @@
+{
+  "accuracy": 0.4775,
+  "macro_f1": 0.3232,
+  "total_samples": 955,
+  "correct": 456,
+  "class_metrics": {
+    "sarcastic": {
+      "precision": 0.4775,
+      "recall": 1.0,
+      "f1": 0.6464,
+      "support": 456
+    },
+    "non_sarcastic": {
+      "precision": 0,
+      "recall": 0.0,
+      "f1": 0,
+      "support": 499
+    }
+  },
+  "prediction_distribution": {
+    "sarcastic": 955
+  },
+  "ground_truth_distribution": {
+    "sarcastic": 456,
+    "non_sarcastic": 499
+  }
+}

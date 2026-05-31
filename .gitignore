@@ -1,0 +1,21 @@
+# Model weights (too large for GitHub, >100MB)
+Sarcasm-R1/models/
+Sarcasm-R1/output/
+Sarcasm-R1/hf_cache/
+Sarcasm-R1/sarcasm-r1/
+
+# Logs
+Sarcasm-R1/logs/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE
+.idea/
+.vscode/
+.DS_Store
+
+# Claude
+.claude/

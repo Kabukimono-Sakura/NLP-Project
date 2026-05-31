@@ -1,0 +1,29 @@
+{
+  "accuracy": 0.3903,
+  "macro_f1": 0.351,
+  "total_samples": 784,
+  "correct": 306,
+  "class_metrics": {
+    "sarcastic": {
+      "precision": 0.4067,
+      "recall": 0.8553,
+      "f1": 0.5513,
+      "support": 311
+    },
+    "non_sarcastic": {
+      "precision": 0.6897,
+      "recall": 0.0846,
+      "f1": 0.1507,
+      "support": 473
+    }
+  },
+  "prediction_distribution": {
+    "sarcastic": 654,
+    "non_sarcastic": 58,
+    "unknown": 72
+  },
+  "ground_truth_distribution": {
+    "non_sarcastic": 473,
+    "sarcastic": 311
+  }
+}

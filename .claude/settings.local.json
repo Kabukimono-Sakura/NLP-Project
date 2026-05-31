@@ -1,7 +1,12 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python *)"
+      "Bash(python *)",
+      "mcp__zai-mcp-server__extract_text_from_screenshot",
+      "Bash(git rm *)",
+      "Bash(git add *)",
+      "Bash(rm -rf MUStARD/.git)",
+      "Bash(rm -rf Sarcasm-R1/.git)"
     ]
   }
 }
