@@ -1,0 +1,33 @@
+{
+  "name": "semeval200_framework1",
+  "input": "framework3/predictions_pmp_v2/semeval200_framework1.jsonl",
+  "total": 200,
+  "accuracy": 0.74,
+  "macro_f1": 0.7390606182256122,
+  "per_label": {
+    "sarcastic": {
+      "precision": 0.6060606060606061,
+      "recall": 1.0,
+      "f1": 0.7547169811320755,
+      "support": 80,
+      "tp": 80,
+      "fp": 52,
+      "fn": 0
+    },
+    "non_sarcastic": {
+      "precision": 1.0,
+      "recall": 0.5666666666666667,
+      "f1": 0.7234042553191489,
+      "support": 120,
+      "tp": 68,
+      "fp": 0,
+      "fn": 52
+    }
+  },
+  "confusion_matrix": {
+    "tp": 80,
+    "fp": 52,
+    "fn": 0,
+    "tn": 68
+  }
+}

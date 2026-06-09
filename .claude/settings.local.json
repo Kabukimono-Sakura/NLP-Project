@@ -10,7 +10,19 @@
       "Bash(git reset *)",
       "Bash(git commit -m ' *)",
       "Bash(git push *)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "WebSearch",
+      "mcp__web-reader__webReader",
+      "Bash(grep -c \"\\\\\\\\\\\\\\\\includegraphics\" /c/Users/25380/PycharmProjects/NLP-Project/Report/colm2026_conference.tex)",
+      "Bash(grep -c \"\\\\\\\\\\\\\\\\begin{figure}\" /c/Users/25380/PycharmProjects/NLP-Project/Report/colm2026_conference.tex)",
+      "Bash(grep -c \"\\\\\\\\\\\\\\\\label{fig:\" /c/Users/25380/PycharmProjects/NLP-Project/Report/colm2026_conference.tex)",
+      "Bash(awk '{print $5, $NF}')",
+      "Bash(xargs -I{} basename {})",
+      "Bash(grep \"\\\\\\\\\\\\\\\\section\" /c/Users/25380/PycharmProjects/NLP-Project/Report/colm2026_conference.tex)",
+      "Bash(xargs -I{} ls -lh {})",
+      "Bash(grep -oP '\\\\\\\\\\\\\\\\cite[tp]?\\\\{[^}]+\\\\}' /c/Users/25380/PycharmProjects/NLP-Project/Report/colm2026_conference.tex)",
+      "Bash(grep -o '@[a-z]*{[^,]*' /c/Users/25380/PycharmProjects/NLP-Project/Report/colm2026_conference.bib)",
+      "Bash(grep *)"
     ]
   }
 }

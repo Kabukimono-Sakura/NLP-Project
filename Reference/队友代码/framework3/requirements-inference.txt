@@ -1,0 +1,8 @@
+transformers
+accelerate
+safetensors
+sentencepiece
+protobuf
+einops
+numpy
+pandas

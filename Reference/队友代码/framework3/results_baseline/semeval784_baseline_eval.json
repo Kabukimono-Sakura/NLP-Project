@@ -1,0 +1,33 @@
+{
+  "name": "semeval784_baseline",
+  "input": "framework3/predictions/semeval784_baseline.jsonl",
+  "total": 784,
+  "accuracy": 0.5790816326530612,
+  "macro_f1": 0.559820334830543,
+  "per_label": {
+    "sarcastic": {
+      "precision": 0.4850863422291994,
+      "recall": 0.9935691318327974,
+      "f1": 0.6518987341772151,
+      "support": 311,
+      "tp": 309,
+      "fp": 328,
+      "fn": 2
+    },
+    "non_sarcastic": {
+      "precision": 0.9863945578231292,
+      "recall": 0.30655391120507397,
+      "f1": 0.46774193548387094,
+      "support": 473,
+      "tp": 145,
+      "fp": 2,
+      "fn": 328
+    }
+  },
+  "confusion_matrix": {
+    "tp": 309,
+    "fp": 328,
+    "fn": 2,
+    "tn": 145
+  }
+}

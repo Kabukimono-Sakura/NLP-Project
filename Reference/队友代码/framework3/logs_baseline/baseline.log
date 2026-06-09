@@ -1,0 +1,1083 @@
+==========================================
+Baseline dataset: semeval200
+Input           : framework1/semeval200.tsv
+Model           : /root/autodl-tmp/project/models/Qwen3-14B
+Max new tokens  : 32
+==========================================
+[RUN] semeval200/baseline baseline prediction -> framework3/predictions/semeval200_baseline.jsonl
+      model : /root/autodl-tmp/project/models/Qwen3-14B
+      prompt: framework3/prompts/baseline_prompt.md
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/443 [00:00<?, ?it/s]Loading weights:   0%|          | 1/443 [00:00<03:06,  2.37it/s]Loading weights:   2%|▏         | 10/443 [00:00<00:17, 24.13it/s]Loading weights:   4%|▍         | 17/443 [00:00<00:12, 34.69it/s]Loading weights:   6%|▌         | 27/443 [00:00<00:08, 49.75it/s]Loading weights:   8%|▊         | 37/443 [00:00<00:07, 52.18it/s]Loading weights:  11%|█         | 48/443 [00:01<00:06, 65.34it/s]Loading weights:  13%|█▎        | 56/443 [00:01<00:05, 65.81it/s]Loading weights:  14%|█▍        | 64/443 [00:01<00:05, 64.31it/s]Loading weights:  16%|█▌        | 71/443 [00:01<00:06, 61.08it/s]Loading weights:  19%|█▊        | 82/443 [00:01<00:05, 68.29it/s]Loading weights:  21%|██        | 92/443 [00:01<00:04, 70.39it/s]Loading weights:  23%|██▎       | 100/443 [00:01<00:04, 72.77it/s]Loading weights:  24%|██▍       | 108/443 [00:01<00:04, 69.36it/s]Loading weights:  26%|██▌       | 116/443 [00:02<00:05, 64.08it/s]Loading weights:  28%|██▊       | 125/443 [00:02<00:04, 64.34it/s]Loading weights:  31%|███       | 136/443 [00:02<00:04, 74.94it/s]Loading weights:  33%|███▎      | 144/443 [00:02<00:03, 76.17it/s]Loading weights:  34%|███▍      | 152/443 [00:02<00:04, 71.51it/s]Loading weights:  36%|███▌      | 160/443 [00:02<00:04, 63.14it/s]Loading weights:  38%|███▊      | 170/443 [00:02<00:03, 70.30it/s]Loading weights:  41%|████      | 180/443 [00:02<00:03, 72.81it/s]Loading weights:  42%|████▏     | 188/443 [00:03<00:03, 70.08it/s]Loading weights:  44%|████▍     | 196/443 [00:03<00:03, 63.80it/s]Loading weights:  46%|████▌     | 203/443 [00:03<00:03, 61.33it/s]Loading weights:  48%|████▊     | 213/443 [00:03<00:03, 65.90it/s]Loading weights:  50%|████▉     | 220/443 [00:03<00:03, 62.11it/s]Loading weights:  51%|█████     | 227/443 [00:03<00:03, 56.88it/s]Loading weights:  53%|█████▎    | 236/443 [00:03<00:03, 60.16it/s]Loading weights:  56%|█████▌    | 246/443 [00:04<00:03, 64.45it/s]Loading weights:  57%|█████▋    | 253/443 [00:04<00:03, 63.21it/s]Loading weights:  59%|█████▊    | 260/443 [00:04<00:03, 54.17it/s]Loading weights:  61%|██████    | 269/443 [00:04<00:02, 58.10it/s]Loading weights:  63%|██████▎   | 279/443 [00:04<00:02, 63.36it/s]Loading weights:  65%|██████▍   | 286/443 [00:04<00:02, 62.73it/s]Loading weights:  66%|██████▌   | 293/443 [00:04<00:02, 55.75it/s]Loading weights:  68%|██████▊   | 302/443 [00:04<00:02, 59.45it/s]Loading weights:  70%|███████   | 311/443 [00:05<00:02, 61.68it/s]Loading weights:  72%|███████▏  | 318/443 [00:05<00:02, 60.84it/s]Loading weights:  73%|███████▎  | 325/443 [00:05<00:02, 53.02it/s]Loading weights:  76%|███████▌  | 335/443 [00:05<00:01, 59.29it/s]Loading weights:  78%|███████▊  | 345/443 [00:05<00:01, 57.70it/s]Loading weights:  80%|████████  | 356/443 [00:05<00:01, 65.57it/s]Loading weights:  82%|████████▏ | 363/443 [00:05<00:01, 64.08it/s]Loading weights:  84%|████████▎ | 370/443 [00:06<00:01, 56.75it/s]Loading weights:  86%|████████▌ | 379/443 [00:06<00:01, 59.90it/s]Loading weights:  88%|████████▊ | 389/443 [00:06<00:00, 62.24it/s]Loading weights:  89%|████████▉ | 396/443 [00:06<00:00, 60.57it/s]Loading weights:  91%|█████████ | 403/443 [00:06<00:00, 54.51it/s]Loading weights:  93%|█████████▎| 412/443 [00:06<00:00, 58.15it/s]Loading weights:  95%|█████████▌| 422/443 [00:06<00:00, 62.84it/s]Loading weights:  97%|█████████▋| 429/443 [00:07<00:00, 60.06it/s]Loading weights:  98%|█████████▊| 436/443 [00:07<00:00, 56.00it/s]Loading weights: 100%|██████████| 443/443 [00:07<00:00, 60.59it/s]
+[1/200] id=0 pred=sarcastic confidence=0.90
+[2/200] id=1 pred=sarcastic confidence=0.90
+[3/200] id=2 pred=sarcastic confidence=0.90
+[4/200] id=3 pred=sarcastic confidence=0.90
+[5/200] id=4 pred=sarcastic confidence=0.90
+[6/200] id=5 pred=non_sarcastic confidence=0.90
+[7/200] id=6 pred=sarcastic confidence=0.90
+[8/200] id=7 pred=sarcastic confidence=0.90
+[9/200] id=8 pred=sarcastic confidence=0.90
+[10/200] id=9 pred=non_sarcastic confidence=0.90
+[11/200] id=10 pred=non_sarcastic confidence=0.90
+[12/200] id=11 pred=non_sarcastic confidence=0.90
+[13/200] id=12 pred=sarcastic confidence=0.90
+[14/200] id=13 pred=sarcastic confidence=0.90
+[15/200] id=14 pred=non_sarcastic confidence=0.90
+[16/200] id=15 pred=sarcastic confidence=0.90
+[17/200] id=16 pred=sarcastic confidence=0.90
+[18/200] id=17 pred=sarcastic confidence=0.90
+[19/200] id=18 pred=sarcastic confidence=0.90
+[20/200] id=19 pred=sarcastic confidence=0.90
+[21/200] id=20 pred=sarcastic confidence=0.90
+[22/200] id=21 pred=non_sarcastic confidence=0.90
+[23/200] id=22 pred=non_sarcastic confidence=0.90
+[24/200] id=23 pred=sarcastic confidence=0.90
+[25/200] id=24 pred=sarcastic confidence=0.90
+[26/200] id=25 pred=sarcastic confidence=0.90
+[27/200] id=26 pred=sarcastic confidence=0.90
+[28/200] id=27 pred=sarcastic confidence=0.90
+[29/200] id=28 pred=sarcastic confidence=0.90
+[30/200] id=29 pred=sarcastic confidence=0.90
+[31/200] id=30 pred=non_sarcastic confidence=0.90
+[32/200] id=31 pred=sarcastic confidence=0.90
+[33/200] id=32 pred=non_sarcastic confidence=0.90
+[34/200] id=33 pred=sarcastic confidence=0.90
+[35/200] id=34 pred=non_sarcastic confidence=0.90
+[36/200] id=35 pred=sarcastic confidence=0.90
+[37/200] id=36 pred=sarcastic confidence=0.90
+[38/200] id=37 pred=non_sarcastic confidence=0.90
+[39/200] id=38 pred=non_sarcastic confidence=0.90
+[40/200] id=39 pred=sarcastic confidence=0.90
+[41/200] id=40 pred=sarcastic confidence=0.90
+[42/200] id=41 pred=non_sarcastic confidence=0.90
+[43/200] id=42 pred=non_sarcastic confidence=0.90
+[44/200] id=43 pred=sarcastic confidence=0.90
+[45/200] id=44 pred=sarcastic confidence=0.90
+[46/200] id=45 pred=sarcastic confidence=0.90
+[47/200] id=46 pred=sarcastic confidence=0.90
+[48/200] id=47 pred=sarcastic confidence=0.90
+[49/200] id=48 pred=sarcastic confidence=0.90
+[50/200] id=49 pred=sarcastic confidence=0.90
+[51/200] id=50 pred=sarcastic confidence=0.90
+[52/200] id=51 pred=sarcastic confidence=0.90
+[53/200] id=52 pred=sarcastic confidence=0.90
+[54/200] id=53 pred=non_sarcastic confidence=0.90
+[55/200] id=54 pred=sarcastic confidence=0.90
+[56/200] id=55 pred=sarcastic confidence=0.90
+[57/200] id=56 pred=non_sarcastic confidence=0.90
+[58/200] id=57 pred=non_sarcastic confidence=0.90
+[59/200] id=58 pred=sarcastic confidence=0.90
+[60/200] id=59 pred=sarcastic confidence=0.90
+[61/200] id=60 pred=non_sarcastic confidence=0.90
+[62/200] id=61 pred=sarcastic confidence=0.90
+[63/200] id=62 pred=non_sarcastic confidence=0.90
+[64/200] id=63 pred=sarcastic confidence=0.90
+[65/200] id=64 pred=sarcastic confidence=0.90
+[66/200] id=65 pred=sarcastic confidence=0.90
+[67/200] id=66 pred=sarcastic confidence=0.90
+[68/200] id=67 pred=non_sarcastic confidence=0.90
+[69/200] id=68 pred=sarcastic confidence=0.90
+[70/200] id=69 pred=sarcastic confidence=0.90
+[71/200] id=70 pred=non_sarcastic confidence=0.90
+[72/200] id=71 pred=sarcastic confidence=0.90
+[73/200] id=72 pred=sarcastic confidence=0.90
+[74/200] id=73 pred=sarcastic confidence=0.90
+[75/200] id=74 pred=non_sarcastic confidence=0.90
+[76/200] id=75 pred=non_sarcastic confidence=0.90
+[77/200] id=76 pred=sarcastic confidence=0.90
+[78/200] id=77 pred=sarcastic confidence=0.90
+[79/200] id=78 pred=sarcastic confidence=0.90
+[80/200] id=79 pred=sarcastic confidence=0.90
+[81/200] id=80 pred=sarcastic confidence=0.90
+[82/200] id=81 pred=sarcastic confidence=0.90
+[83/200] id=82 pred=non_sarcastic confidence=0.90
+[84/200] id=83 pred=sarcastic confidence=0.90
+[85/200] id=84 pred=sarcastic confidence=0.90
+[86/200] id=85 pred=sarcastic confidence=0.90
+[87/200] id=86 pred=sarcastic confidence=0.90
+[88/200] id=87 pred=sarcastic confidence=0.90
+[89/200] id=88 pred=sarcastic confidence=0.90
+[90/200] id=89 pred=non_sarcastic confidence=0.90
+[91/200] id=90 pred=sarcastic confidence=0.90
+[92/200] id=91 pred=sarcastic confidence=0.90
+[93/200] id=92 pred=sarcastic confidence=0.90
+[94/200] id=93 pred=sarcastic confidence=0.90
+[95/200] id=94 pred=sarcastic confidence=0.90
+[96/200] id=95 pred=sarcastic confidence=0.90
+[97/200] id=96 pred=sarcastic confidence=0.90
+[98/200] id=97 pred=sarcastic confidence=0.90
+[99/200] id=98 pred=non_sarcastic confidence=0.90
+[100/200] id=99 pred=non_sarcastic confidence=0.90
+[101/200] id=100 pred=sarcastic confidence=0.90
+[102/200] id=101 pred=sarcastic confidence=0.90
+[103/200] id=102 pred=sarcastic confidence=0.90
+[104/200] id=103 pred=sarcastic confidence=0.90
+[105/200] id=104 pred=sarcastic confidence=0.90
+[106/200] id=105 pred=sarcastic confidence=0.90
+[107/200] id=106 pred=sarcastic confidence=0.90
+[108/200] id=107 pred=sarcastic confidence=0.90
+[109/200] id=108 pred=sarcastic confidence=0.90
+[110/200] id=109 pred=non_sarcastic confidence=0.90
+[111/200] id=110 pred=sarcastic confidence=0.90
+[112/200] id=111 pred=sarcastic confidence=0.90
+[113/200] id=112 pred=sarcastic confidence=0.90
+[114/200] id=113 pred=sarcastic confidence=0.90
+[115/200] id=114 pred=sarcastic confidence=0.90
+[116/200] id=115 pred=sarcastic confidence=0.90
+[117/200] id=116 pred=sarcastic confidence=0.90
+[118/200] id=117 pred=sarcastic confidence=0.90
+[119/200] id=118 pred=sarcastic confidence=0.90
+[120/200] id=119 pred=sarcastic confidence=0.90
+[121/200] id=120 pred=sarcastic confidence=0.90
+[122/200] id=121 pred=non_sarcastic confidence=0.90
+[123/200] id=122 pred=sarcastic confidence=0.90
+[124/200] id=123 pred=sarcastic confidence=0.90
+[125/200] id=124 pred=sarcastic confidence=0.90
+[126/200] id=125 pred=non_sarcastic confidence=0.90
+[127/200] id=126 pred=non_sarcastic confidence=0.90
+[128/200] id=127 pred=sarcastic confidence=0.90
+[129/200] id=128 pred=sarcastic confidence=0.90
+[130/200] id=129 pred=non_sarcastic confidence=0.90
+[131/200] id=130 pred=sarcastic confidence=0.90
+[132/200] id=131 pred=sarcastic confidence=0.90
+[133/200] id=132 pred=sarcastic confidence=0.90
+[134/200] id=133 pred=sarcastic confidence=0.90
+[135/200] id=134 pred=sarcastic confidence=0.90
+[136/200] id=135 pred=sarcastic confidence=0.90
+[137/200] id=136 pred=sarcastic confidence=0.90
+[138/200] id=137 pred=sarcastic confidence=0.90
+[139/200] id=138 pred=sarcastic confidence=0.90
+[140/200] id=139 pred=sarcastic confidence=0.90
+[141/200] id=140 pred=sarcastic confidence=0.90
+[142/200] id=141 pred=sarcastic confidence=0.90
+[143/200] id=142 pred=sarcastic confidence=0.90
+[144/200] id=143 pred=sarcastic confidence=0.90
+[145/200] id=144 pred=sarcastic confidence=0.90
+[146/200] id=145 pred=sarcastic confidence=0.90
+[147/200] id=146 pred=sarcastic confidence=0.90
+[148/200] id=147 pred=non_sarcastic confidence=0.90
+[149/200] id=148 pred=sarcastic confidence=0.90
+[150/200] id=149 pred=sarcastic confidence=0.90
+[151/200] id=150 pred=sarcastic confidence=0.90
+[152/200] id=151 pred=non_sarcastic confidence=0.90
+[153/200] id=152 pred=sarcastic confidence=0.90
+[154/200] id=153 pred=sarcastic confidence=0.90
+[155/200] id=154 pred=non_sarcastic confidence=0.90
+[156/200] id=155 pred=sarcastic confidence=0.90
+[157/200] id=156 pred=sarcastic confidence=0.90
+[158/200] id=157 pred=sarcastic confidence=0.90
+[159/200] id=158 pred=sarcastic confidence=0.90
+[160/200] id=159 pred=sarcastic confidence=0.90
+[161/200] id=160 pred=sarcastic confidence=0.90
+[162/200] id=161 pred=sarcastic confidence=0.90
+[163/200] id=162 pred=sarcastic confidence=0.90
+[164/200] id=163 pred=sarcastic confidence=0.90
+[165/200] id=164 pred=non_sarcastic confidence=0.90
+[166/200] id=165 pred=sarcastic confidence=0.90
+[167/200] id=166 pred=sarcastic confidence=0.90
+[168/200] id=167 pred=sarcastic confidence=0.90
+[169/200] id=168 pred=non_sarcastic confidence=0.90
+[170/200] id=169 pred=sarcastic confidence=0.90
+[171/200] id=170 pred=sarcastic confidence=0.90
+[172/200] id=171 pred=sarcastic confidence=0.90
+[173/200] id=172 pred=sarcastic confidence=0.90
+[174/200] id=173 pred=sarcastic confidence=0.90
+[175/200] id=174 pred=sarcastic confidence=0.90
+[176/200] id=175 pred=sarcastic confidence=0.90
+[177/200] id=176 pred=sarcastic confidence=0.90
+[178/200] id=177 pred=sarcastic confidence=0.90
+[179/200] id=178 pred=sarcastic confidence=0.90
+[180/200] id=179 pred=sarcastic confidence=0.90
+[181/200] id=180 pred=non_sarcastic confidence=0.90
+[182/200] id=181 pred=sarcastic confidence=0.90
+[183/200] id=182 pred=sarcastic confidence=0.90
+[184/200] id=183 pred=sarcastic confidence=0.90
+[185/200] id=184 pred=sarcastic confidence=0.90
+[186/200] id=185 pred=sarcastic confidence=0.90
+[187/200] id=186 pred=sarcastic confidence=0.90
+[188/200] id=187 pred=sarcastic confidence=0.90
+[189/200] id=188 pred=non_sarcastic confidence=0.90
+[190/200] id=189 pred=non_sarcastic confidence=0.90
+[191/200] id=190 pred=non_sarcastic confidence=0.90
+[192/200] id=191 pred=sarcastic confidence=0.90
+[193/200] id=192 pred=sarcastic confidence=0.90
+[194/200] id=193 pred=sarcastic confidence=0.90
+[195/200] id=194 pred=sarcastic confidence=0.90
+[196/200] id=195 pred=sarcastic confidence=0.90
+[197/200] id=196 pred=sarcastic confidence=0.90
+[198/200] id=197 pred=sarcastic confidence=0.90
+[199/200] id=198 pred=non_sarcastic confidence=0.90
+[200/200] id=199 pred=sarcastic confidence=0.90
+[EVAL] semeval200_baseline -> framework3/results/semeval200_baseline_eval.json
+{
+  "name": "semeval200_baseline",
+  "input": "framework3/predictions/semeval200_baseline.jsonl",
+  "total": 200,
+  "accuracy": 0.61,
+  "macro_f1": 0.5953937130407718,
+  "per_label": {
+    "sarcastic": {
+      "precision": 0.5063291139240507,
+      "recall": 1.0,
+      "f1": 0.6722689075630253,
+      "support": 80,
+      "tp": 80,
+      "fp": 78,
+      "fn": 0
+    },
+    "non_sarcastic": {
+      "precision": 1.0,
+      "recall": 0.35,
+      "f1": 0.5185185185185185,
+      "support": 120,
+      "tp": 42,
+      "fp": 0,
+      "fn": 78
+    }
+  },
+  "confusion_matrix": {
+    "tp": 80,
+    "fp": 78,
+    "fn": 0,
+    "tn": 42
+  }
+}
+==========================================
+Baseline dataset: semeval784
+Input           : framework2/Sarcasm-R1/data/processed/semeval_test.csv
+Model           : /root/autodl-tmp/project/models/Qwen3-14B
+Max new tokens  : 32
+==========================================
+[RUN] semeval784/baseline baseline prediction -> framework3/predictions/semeval784_baseline.jsonl
+      model : /root/autodl-tmp/project/models/Qwen3-14B
+      prompt: framework3/prompts/baseline_prompt.md
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/443 [00:00<?, ?it/s]Loading weights:   0%|          | 1/443 [00:00<03:12,  2.29it/s]Loading weights:   2%|▏         | 10/443 [00:00<00:18, 23.24it/s]Loading weights:   4%|▍         | 17/443 [00:00<00:12, 35.14it/s]Loading weights:   6%|▌         | 27/443 [00:00<00:08, 48.07it/s]Loading weights:   8%|▊         | 37/443 [00:00<00:07, 57.81it/s]Loading weights:  10%|█         | 45/443 [00:01<00:06, 62.84it/s]Loading weights:  12%|█▏        | 53/443 [00:01<00:06, 62.56it/s]Loading weights:  14%|█▎        | 60/443 [00:01<00:06, 62.47it/s]Loading weights:  16%|█▌        | 70/443 [00:01<00:05, 68.47it/s]Loading weights:  18%|█▊        | 81/443 [00:01<00:04, 74.64it/s]Loading weights:  20%|██        | 89/443 [00:01<00:04, 71.90it/s]Loading weights:  22%|██▏       | 97/443 [00:01<00:04, 69.53it/s]Loading weights:  24%|██▎       | 105/443 [00:01<00:05, 64.66it/s]Loading weights:  26%|██▌       | 115/443 [00:02<00:04, 68.55it/s]Loading weights:  28%|██▊       | 125/443 [00:02<00:04, 68.61it/s]Loading weights:  30%|██▉       | 132/443 [00:02<00:04, 66.53it/s]Loading weights:  31%|███▏      | 139/443 [00:02<00:05, 58.19it/s]Loading weights:  33%|███▎      | 148/443 [00:02<00:04, 61.01it/s]Loading weights:  36%|███▌      | 158/443 [00:02<00:04, 65.10it/s]Loading weights:  37%|███▋      | 165/443 [00:02<00:04, 61.67it/s]Loading weights:  39%|███▉      | 172/443 [00:02<00:04, 56.59it/s]Loading weights:  41%|████      | 181/443 [00:03<00:04, 60.05it/s]Loading weights:  43%|████▎     | 191/443 [00:03<00:04, 62.44it/s]Loading weights:  45%|████▍     | 198/443 [00:03<00:03, 61.86it/s]Loading weights:  46%|████▋     | 205/443 [00:03<00:04, 55.18it/s]Loading weights:  48%|████▊     | 214/443 [00:03<00:03, 59.14it/s]Loading weights:  51%|█████     | 224/443 [00:03<00:03, 63.61it/s]Loading weights:  52%|█████▏    | 231/443 [00:03<00:03, 60.62it/s]Loading weights:  54%|█████▎    | 238/443 [00:04<00:03, 55.88it/s]Loading weights:  56%|█████▌    | 247/443 [00:04<00:03, 59.71it/s]Loading weights:  58%|█████▊    | 257/443 [00:04<00:02, 62.91it/s]Loading weights:  60%|█████▉    | 264/443 [00:04<00:02, 62.18it/s]Loading weights:  61%|██████    | 271/443 [00:04<00:03, 54.82it/s]Loading weights:  63%|██████▎   | 280/443 [00:04<00:02, 59.55it/s]Loading weights:  65%|██████▌   | 290/443 [00:04<00:02, 63.89it/s]Loading weights:  67%|██████▋   | 297/443 [00:05<00:02, 60.81it/s]Loading weights:  69%|██████▊   | 304/443 [00:05<00:02, 56.31it/s]Loading weights:  71%|███████   | 313/443 [00:05<00:02, 59.75it/s]Loading weights:  72%|███████▏  | 321/443 [00:05<00:01, 64.24it/s]Loading weights:  74%|███████▍  | 328/443 [00:05<00:01, 58.30it/s]Loading weights:  76%|███████▌  | 335/443 [00:05<00:01, 57.05it/s]Loading weights:  78%|███████▊  | 345/443 [00:05<00:01, 62.60it/s]Loading weights:  79%|███████▉  | 352/443 [00:05<00:01, 59.81it/s]Loading weights:  81%|████████  | 359/443 [00:06<00:01, 55.64it/s]Loading weights:  83%|████████▎ | 368/443 [00:06<00:01, 59.05it/s]Loading weights:  85%|████████▌ | 378/443 [00:06<00:01, 57.47it/s]Loading weights:  88%|████████▊ | 389/443 [00:06<00:00, 62.54it/s]Loading weights:  89%|████████▉ | 396/443 [00:06<00:00, 61.99it/s]Loading weights:  91%|█████████ | 403/443 [00:06<00:00, 54.91it/s]Loading weights:  93%|█████████▎| 412/443 [00:07<00:00, 58.78it/s]Loading weights:  95%|█████████▌| 422/443 [00:07<00:00, 57.25it/s]Loading weights:  98%|█████████▊| 433/443 [00:07<00:00, 63.72it/s]Loading weights:  99%|█████████▉| 440/443 [00:07<00:00, 62.83it/s]Loading weights: 100%|██████████| 443/443 [00:07<00:00, 59.40it/s]
+[1/784] id=0 pred=sarcastic confidence=0.90
+[2/784] id=1 pred=sarcastic confidence=0.90
+[3/784] id=2 pred=sarcastic confidence=0.90
+[4/784] id=3 pred=sarcastic confidence=0.90
+[5/784] id=4 pred=sarcastic confidence=0.90
+[6/784] id=5 pred=non_sarcastic confidence=0.90
+[7/784] id=6 pred=sarcastic confidence=0.90
+[8/784] id=7 pred=sarcastic confidence=0.90
+[9/784] id=8 pred=sarcastic confidence=0.90
+[10/784] id=9 pred=sarcastic confidence=0.90
+[11/784] id=10 pred=non_sarcastic confidence=0.90
+[12/784] id=11 pred=sarcastic confidence=0.90
+[13/784] id=12 pred=sarcastic confidence=0.90
+[14/784] id=13 pred=sarcastic confidence=0.90
+[15/784] id=14 pred=sarcastic confidence=0.90
+[16/784] id=15 pred=non_sarcastic confidence=0.90
+[17/784] id=16 pred=sarcastic confidence=0.90
+[18/784] id=17 pred=non_sarcastic confidence=0.90
+[19/784] id=18 pred=sarcastic confidence=0.90
+[20/784] id=19 pred=sarcastic confidence=0.90
+[21/784] id=20 pred=sarcastic confidence=0.90
+[22/784] id=21 pred=sarcastic confidence=0.90
+[23/784] id=22 pred=sarcastic confidence=0.90
+[24/784] id=23 pred=sarcastic confidence=0.90
+[25/784] id=24 pred=sarcastic confidence=0.90
+[26/784] id=25 pred=sarcastic confidence=0.90
+[27/784] id=26 pred=sarcastic confidence=0.90
+[28/784] id=27 pred=sarcastic confidence=0.90
+[29/784] id=28 pred=sarcastic confidence=0.90
+[30/784] id=29 pred=non_sarcastic confidence=0.90
+[31/784] id=30 pred=sarcastic confidence=0.90
+[32/784] id=31 pred=sarcastic confidence=0.90
+[33/784] id=32 pred=sarcastic confidence=0.90
+[34/784] id=33 pred=non_sarcastic confidence=0.90
+[35/784] id=34 pred=sarcastic confidence=0.90
+[36/784] id=35 pred=non_sarcastic confidence=0.90
+[37/784] id=36 pred=non_sarcastic confidence=0.90
+[38/784] id=37 pred=non_sarcastic confidence=0.90
+[39/784] id=38 pred=sarcastic confidence=0.90
+[40/784] id=39 pred=sarcastic confidence=0.90
+[41/784] id=40 pred=sarcastic confidence=0.90
+[42/784] id=41 pred=sarcastic confidence=0.90
+[43/784] id=42 pred=sarcastic confidence=0.90
+[44/784] id=43 pred=sarcastic confidence=0.90
+[45/784] id=44 pred=sarcastic confidence=0.90
+[46/784] id=45 pred=sarcastic confidence=0.90
+[47/784] id=46 pred=sarcastic confidence=0.90
+[48/784] id=47 pred=sarcastic confidence=0.90
+[49/784] id=48 pred=sarcastic confidence=0.90
+[50/784] id=49 pred=sarcastic confidence=0.90
+[51/784] id=50 pred=sarcastic confidence=0.90
+[52/784] id=51 pred=non_sarcastic confidence=0.90
+[53/784] id=52 pred=sarcastic confidence=0.90
+[54/784] id=53 pred=sarcastic confidence=0.90
+[55/784] id=54 pred=sarcastic confidence=0.90
+[56/784] id=55 pred=sarcastic confidence=0.90
+[57/784] id=56 pred=sarcastic confidence=0.90
+[58/784] id=57 pred=sarcastic confidence=0.90
+[59/784] id=58 pred=sarcastic confidence=0.90
+[60/784] id=59 pred=non_sarcastic confidence=0.90
+[61/784] id=60 pred=sarcastic confidence=0.90
+[62/784] id=61 pred=sarcastic confidence=0.90
+[63/784] id=62 pred=sarcastic confidence=0.90
+[64/784] id=63 pred=sarcastic confidence=0.90
+[65/784] id=64 pred=sarcastic confidence=0.90
+[66/784] id=65 pred=sarcastic confidence=0.90
+[67/784] id=66 pred=sarcastic confidence=0.90
+[68/784] id=67 pred=sarcastic confidence=0.90
+[69/784] id=68 pred=sarcastic confidence=0.90
+[70/784] id=69 pred=sarcastic confidence=0.90
+[71/784] id=70 pred=non_sarcastic confidence=0.90
+[72/784] id=71 pred=sarcastic confidence=0.90
+[73/784] id=72 pred=sarcastic confidence=0.90
+[74/784] id=73 pred=sarcastic confidence=0.90
+[75/784] id=74 pred=non_sarcastic confidence=0.90
+[76/784] id=75 pred=sarcastic confidence=0.90
+[77/784] id=76 pred=non_sarcastic confidence=0.90
+[78/784] id=77 pred=non_sarcastic confidence=0.90
+[79/784] id=78 pred=non_sarcastic confidence=0.90
+[80/784] id=79 pred=sarcastic confidence=0.90
+[81/784] id=80 pred=sarcastic confidence=0.90
+[82/784] id=81 pred=non_sarcastic confidence=0.90
+[83/784] id=82 pred=non_sarcastic confidence=0.90
+[84/784] id=83 pred=sarcastic confidence=0.90
+[85/784] id=84 pred=sarcastic confidence=0.90
+[86/784] id=85 pred=non_sarcastic confidence=0.90
+[87/784] id=86 pred=sarcastic confidence=0.90
+[88/784] id=87 pred=sarcastic confidence=0.90
+[89/784] id=88 pred=sarcastic confidence=0.90
+[90/784] id=89 pred=sarcastic confidence=0.90
+[91/784] id=90 pred=sarcastic confidence=0.90
+[92/784] id=91 pred=sarcastic confidence=0.90
+[93/784] id=92 pred=sarcastic confidence=0.90
+[94/784] id=93 pred=sarcastic confidence=0.90
+[95/784] id=94 pred=sarcastic confidence=0.90
+[96/784] id=95 pred=sarcastic confidence=0.90
+[97/784] id=96 pred=sarcastic confidence=0.90
+[98/784] id=97 pred=non_sarcastic confidence=0.90
+[99/784] id=98 pred=sarcastic confidence=0.90
+[100/784] id=99 pred=sarcastic confidence=0.90
+[101/784] id=100 pred=sarcastic confidence=0.90
+[102/784] id=101 pred=non_sarcastic confidence=0.90
+[103/784] id=102 pred=non_sarcastic confidence=0.90
+[104/784] id=103 pred=sarcastic confidence=0.90
+[105/784] id=104 pred=non_sarcastic confidence=0.90
+[106/784] id=105 pred=sarcastic confidence=0.90
+[107/784] id=106 pred=sarcastic confidence=0.90
+[108/784] id=107 pred=sarcastic confidence=0.90
+[109/784] id=108 pred=sarcastic confidence=0.90
+[110/784] id=109 pred=sarcastic confidence=0.90
+[111/784] id=110 pred=sarcastic confidence=0.90
+[112/784] id=111 pred=sarcastic confidence=0.90
+[113/784] id=112 pred=sarcastic confidence=0.90
+[114/784] id=113 pred=sarcastic confidence=0.90
+[115/784] id=114 pred=sarcastic confidence=0.90
+[116/784] id=115 pred=sarcastic confidence=0.90
+[117/784] id=116 pred=non_sarcastic confidence=0.90
+[118/784] id=117 pred=sarcastic confidence=0.90
+[119/784] id=118 pred=sarcastic confidence=0.90
+[120/784] id=119 pred=sarcastic confidence=0.90
+[121/784] id=120 pred=non_sarcastic confidence=0.90
+[122/784] id=121 pred=sarcastic confidence=0.90
+[123/784] id=122 pred=sarcastic confidence=0.90
+[124/784] id=123 pred=sarcastic confidence=0.90
+[125/784] id=124 pred=sarcastic confidence=0.90
+[126/784] id=125 pred=sarcastic confidence=0.90
+[127/784] id=126 pred=sarcastic confidence=0.90
+[128/784] id=127 pred=sarcastic confidence=0.90
+[129/784] id=128 pred=non_sarcastic confidence=0.90
+[130/784] id=129 pred=sarcastic confidence=0.90
+[131/784] id=130 pred=sarcastic confidence=0.90
+[132/784] id=131 pred=non_sarcastic confidence=0.90
+[133/784] id=132 pred=sarcastic confidence=0.90
+[134/784] id=133 pred=sarcastic confidence=0.90
+[135/784] id=134 pred=non_sarcastic confidence=0.90
+[136/784] id=135 pred=sarcastic confidence=0.90
+[137/784] id=136 pred=sarcastic confidence=0.90
+[138/784] id=137 pred=sarcastic confidence=0.90
+[139/784] id=138 pred=sarcastic confidence=0.90
+[140/784] id=139 pred=sarcastic confidence=0.90
+[141/784] id=140 pred=sarcastic confidence=0.90
+[142/784] id=141 pred=non_sarcastic confidence=0.90
+[143/784] id=142 pred=sarcastic confidence=0.90
+[144/784] id=143 pred=sarcastic confidence=0.90
+[145/784] id=144 pred=sarcastic confidence=0.90
+[146/784] id=145 pred=sarcastic confidence=0.90
+[147/784] id=146 pred=sarcastic confidence=0.90
+[148/784] id=147 pred=non_sarcastic confidence=0.90
+[149/784] id=148 pred=sarcastic confidence=0.90
+[150/784] id=149 pred=non_sarcastic confidence=0.90
+[151/784] id=150 pred=sarcastic confidence=0.90
+[152/784] id=151 pred=non_sarcastic confidence=0.90
+[153/784] id=152 pred=sarcastic confidence=0.90
+[154/784] id=153 pred=non_sarcastic confidence=0.90
+[155/784] id=154 pred=sarcastic confidence=0.90
+[156/784] id=155 pred=sarcastic confidence=0.90
+[157/784] id=156 pred=sarcastic confidence=0.90
+[158/784] id=157 pred=non_sarcastic confidence=0.90
+[159/784] id=158 pred=sarcastic confidence=0.90
+[160/784] id=159 pred=non_sarcastic confidence=0.90
+[161/784] id=160 pred=sarcastic confidence=0.90
+[162/784] id=161 pred=sarcastic confidence=0.90
+[163/784] id=162 pred=sarcastic confidence=0.90
+[164/784] id=163 pred=sarcastic confidence=0.90
+[165/784] id=164 pred=sarcastic confidence=0.90
+[166/784] id=165 pred=sarcastic confidence=0.90
+[167/784] id=166 pred=sarcastic confidence=0.90
+[168/784] id=167 pred=sarcastic confidence=0.90
+[169/784] id=168 pred=sarcastic confidence=0.90
+[170/784] id=169 pred=sarcastic confidence=0.90
+[171/784] id=170 pred=sarcastic confidence=0.90
+[172/784] id=171 pred=sarcastic confidence=0.90
+[173/784] id=172 pred=sarcastic confidence=0.90
+[174/784] id=173 pred=sarcastic confidence=0.90
+[175/784] id=174 pred=sarcastic confidence=0.90
+[176/784] id=175 pred=non_sarcastic confidence=0.90
+[177/784] id=176 pred=sarcastic confidence=0.90
+[178/784] id=177 pred=sarcastic confidence=0.90
+[179/784] id=178 pred=sarcastic confidence=0.90
+[180/784] id=179 pred=sarcastic confidence=0.90
+[181/784] id=180 pred=sarcastic confidence=0.90
+[182/784] id=181 pred=sarcastic confidence=0.90
+[183/784] id=182 pred=sarcastic confidence=0.90
+[184/784] id=183 pred=non_sarcastic confidence=0.90
+[185/784] id=184 pred=sarcastic confidence=0.90
+[186/784] id=185 pred=non_sarcastic confidence=0.90
+[187/784] id=186 pred=sarcastic confidence=0.90
+[188/784] id=187 pred=sarcastic confidence=0.90
+[189/784] id=188 pred=sarcastic confidence=0.90
+[190/784] id=189 pred=sarcastic confidence=0.90
+[191/784] id=190 pred=sarcastic confidence=0.90
+[192/784] id=191 pred=sarcastic confidence=0.90
+[193/784] id=192 pred=sarcastic confidence=0.90
+[194/784] id=193 pred=sarcastic confidence=0.90
+[195/784] id=194 pred=sarcastic confidence=0.90
+[196/784] id=195 pred=sarcastic confidence=0.90
+[197/784] id=196 pred=sarcastic confidence=0.90
+[198/784] id=197 pred=sarcastic confidence=0.90
+[199/784] id=198 pred=sarcastic confidence=0.90
+[200/784] id=199 pred=sarcastic confidence=0.90
+[201/784] id=200 pred=sarcastic confidence=0.90
+[202/784] id=201 pred=sarcastic confidence=0.90
+[203/784] id=202 pred=sarcastic confidence=0.90
+[204/784] id=203 pred=sarcastic confidence=0.90
+[205/784] id=204 pred=sarcastic confidence=0.90
+[206/784] id=205 pred=non_sarcastic confidence=0.90
+[207/784] id=206 pred=non_sarcastic confidence=0.90
+[208/784] id=207 pred=sarcastic confidence=0.90
+[209/784] id=208 pred=sarcastic confidence=0.90
+[210/784] id=209 pred=sarcastic confidence=0.90
+[211/784] id=210 pred=sarcastic confidence=0.90
+[212/784] id=211 pred=non_sarcastic confidence=0.90
+[213/784] id=212 pred=sarcastic confidence=0.90
+[214/784] id=213 pred=sarcastic confidence=0.90
+[215/784] id=214 pred=sarcastic confidence=0.90
+[216/784] id=215 pred=sarcastic confidence=0.90
+[217/784] id=216 pred=sarcastic confidence=0.90
+[218/784] id=217 pred=sarcastic confidence=0.90
+[219/784] id=218 pred=sarcastic confidence=0.90
+[220/784] id=219 pred=sarcastic confidence=0.90
+[221/784] id=220 pred=non_sarcastic confidence=0.90
+[222/784] id=221 pred=sarcastic confidence=0.90
+[223/784] id=222 pred=sarcastic confidence=0.90
+[224/784] id=223 pred=sarcastic confidence=0.90
+[225/784] id=224 pred=sarcastic confidence=0.90
+[226/784] id=225 pred=sarcastic confidence=0.90
+[227/784] id=226 pred=non_sarcastic confidence=0.90
+[228/784] id=227 pred=sarcastic confidence=0.90
+[229/784] id=228 pred=sarcastic confidence=0.90
+[230/784] id=229 pred=non_sarcastic confidence=0.90
+[231/784] id=230 pred=sarcastic confidence=0.90
+[232/784] id=231 pred=sarcastic confidence=0.90
+[233/784] id=232 pred=sarcastic confidence=0.90
+[234/784] id=233 pred=sarcastic confidence=0.90
+[235/784] id=234 pred=sarcastic confidence=0.90
+[236/784] id=235 pred=sarcastic confidence=0.90
+[237/784] id=236 pred=sarcastic confidence=0.90
+[238/784] id=237 pred=non_sarcastic confidence=0.90
+[239/784] id=238 pred=sarcastic confidence=0.90
+[240/784] id=239 pred=sarcastic confidence=0.90
+[241/784] id=240 pred=sarcastic confidence=0.90
+[242/784] id=241 pred=sarcastic confidence=0.90
+[243/784] id=242 pred=sarcastic confidence=0.90
+[244/784] id=243 pred=sarcastic confidence=0.90
+[245/784] id=244 pred=sarcastic confidence=0.90
+[246/784] id=245 pred=sarcastic confidence=0.90
+[247/784] id=246 pred=sarcastic confidence=0.90
+[248/784] id=247 pred=sarcastic confidence=0.90
+[249/784] id=248 pred=sarcastic confidence=0.90
+[250/784] id=249 pred=sarcastic confidence=0.90
+[251/784] id=250 pred=non_sarcastic confidence=0.90
+[252/784] id=251 pred=sarcastic confidence=0.90
+[253/784] id=252 pred=sarcastic confidence=0.90
+[254/784] id=253 pred=sarcastic confidence=0.90
+[255/784] id=254 pred=non_sarcastic confidence=0.90
+[256/784] id=255 pred=sarcastic confidence=0.90
+[257/784] id=256 pred=sarcastic confidence=0.90
+[258/784] id=257 pred=sarcastic confidence=0.90
+[259/784] id=258 pred=non_sarcastic confidence=0.90
+[260/784] id=259 pred=sarcastic confidence=0.90
+[261/784] id=260 pred=sarcastic confidence=0.90
+[262/784] id=261 pred=sarcastic confidence=0.90
+[263/784] id=262 pred=sarcastic confidence=0.90
+[264/784] id=263 pred=sarcastic confidence=0.90
+[265/784] id=264 pred=sarcastic confidence=0.90
+[266/784] id=265 pred=sarcastic confidence=0.90
+[267/784] id=266 pred=sarcastic confidence=0.90
+[268/784] id=267 pred=sarcastic confidence=0.90
+[269/784] id=268 pred=sarcastic confidence=0.90
+[270/784] id=269 pred=sarcastic confidence=0.90
+[271/784] id=270 pred=sarcastic confidence=0.90
+[272/784] id=271 pred=sarcastic confidence=0.90
+[273/784] id=272 pred=sarcastic confidence=0.90
+[274/784] id=273 pred=sarcastic confidence=0.90
+[275/784] id=274 pred=sarcastic confidence=0.90
+[276/784] id=275 pred=sarcastic confidence=0.90
+[277/784] id=276 pred=sarcastic confidence=0.90
+[278/784] id=277 pred=sarcastic confidence=0.90
+[279/784] id=278 pred=sarcastic confidence=0.90
+[280/784] id=279 pred=sarcastic confidence=0.90
+[281/784] id=280 pred=non_sarcastic confidence=0.90
+[282/784] id=281 pred=sarcastic confidence=0.90
+[283/784] id=282 pred=sarcastic confidence=0.90
+[284/784] id=283 pred=sarcastic confidence=0.90
+[285/784] id=284 pred=non_sarcastic confidence=0.90
+[286/784] id=285 pred=sarcastic confidence=0.90
+[287/784] id=286 pred=sarcastic confidence=0.90
+[288/784] id=287 pred=sarcastic confidence=0.90
+[289/784] id=288 pred=sarcastic confidence=0.90
+[290/784] id=289 pred=sarcastic confidence=0.90
+[291/784] id=290 pred=sarcastic confidence=0.90
+[292/784] id=291 pred=non_sarcastic confidence=0.90
+[293/784] id=292 pred=sarcastic confidence=0.90
+[294/784] id=293 pred=non_sarcastic confidence=0.90
+[295/784] id=294 pred=sarcastic confidence=0.90
+[296/784] id=295 pred=non_sarcastic confidence=0.90
+[297/784] id=296 pred=sarcastic confidence=0.90
+[298/784] id=297 pred=non_sarcastic confidence=0.90
+[299/784] id=298 pred=sarcastic confidence=0.90
+[300/784] id=299 pred=sarcastic confidence=0.90
+[301/784] id=300 pred=sarcastic confidence=0.90
+[302/784] id=301 pred=sarcastic confidence=0.90
+[303/784] id=302 pred=non_sarcastic confidence=0.90
+[304/784] id=303 pred=sarcastic confidence=0.90
+[305/784] id=304 pred=non_sarcastic confidence=0.90
+[306/784] id=305 pred=non_sarcastic confidence=0.90
+[307/784] id=306 pred=sarcastic confidence=0.90
+[308/784] id=307 pred=sarcastic confidence=0.90
+[309/784] id=308 pred=sarcastic confidence=0.90
+[310/784] id=309 pred=sarcastic confidence=0.90
+[311/784] id=310 pred=sarcastic confidence=0.90
+[312/784] id=311 pred=sarcastic confidence=0.90
+[313/784] id=312 pred=sarcastic confidence=0.90
+[314/784] id=313 pred=sarcastic confidence=0.90
+[315/784] id=314 pred=sarcastic confidence=0.90
+[316/784] id=315 pred=sarcastic confidence=0.90
+[317/784] id=316 pred=non_sarcastic confidence=0.90
+[318/784] id=317 pred=sarcastic confidence=0.90
+[319/784] id=318 pred=sarcastic confidence=0.90
+[320/784] id=319 pred=sarcastic confidence=0.90
+[321/784] id=320 pred=non_sarcastic confidence=0.90
+[322/784] id=321 pred=non_sarcastic confidence=0.90
+[323/784] id=322 pred=non_sarcastic confidence=0.90
+[324/784] id=323 pred=sarcastic confidence=0.90
+[325/784] id=324 pred=sarcastic confidence=0.90
+[326/784] id=325 pred=non_sarcastic confidence=0.90
+[327/784] id=326 pred=sarcastic confidence=0.90
+[328/784] id=327 pred=sarcastic confidence=0.90
+[329/784] id=328 pred=sarcastic confidence=0.90
+[330/784] id=329 pred=non_sarcastic confidence=0.90
+[331/784] id=330 pred=sarcastic confidence=0.90
+[332/784] id=331 pred=sarcastic confidence=0.90
+[333/784] id=332 pred=non_sarcastic confidence=0.90
+[334/784] id=333 pred=sarcastic confidence=0.90
+[335/784] id=334 pred=sarcastic confidence=0.90
+[336/784] id=335 pred=non_sarcastic confidence=0.90
+[337/784] id=336 pred=non_sarcastic confidence=0.90
+[338/784] id=337 pred=sarcastic confidence=0.90
+[339/784] id=338 pred=sarcastic confidence=0.90
+[340/784] id=339 pred=sarcastic confidence=0.90
+[341/784] id=340 pred=sarcastic confidence=0.90
+[342/784] id=341 pred=sarcastic confidence=0.90
+[343/784] id=342 pred=sarcastic confidence=0.90
+[344/784] id=343 pred=sarcastic confidence=0.90
+[345/784] id=344 pred=sarcastic confidence=0.90
+[346/784] id=345 pred=sarcastic confidence=0.90
+[347/784] id=346 pred=sarcastic confidence=0.90
+[348/784] id=347 pred=sarcastic confidence=0.90
+[349/784] id=348 pred=sarcastic confidence=0.90
+[350/784] id=349 pred=sarcastic confidence=0.90
+[351/784] id=350 pred=sarcastic confidence=0.90
+[352/784] id=351 pred=sarcastic confidence=0.90
+[353/784] id=352 pred=sarcastic confidence=0.90
+[354/784] id=353 pred=sarcastic confidence=0.90
+[355/784] id=354 pred=sarcastic confidence=0.90
+[356/784] id=355 pred=sarcastic confidence=0.90
+[357/784] id=356 pred=sarcastic confidence=0.90
+[358/784] id=357 pred=sarcastic confidence=0.90
+[359/784] id=358 pred=sarcastic confidence=0.90
+[360/784] id=359 pred=non_sarcastic confidence=0.90
+[361/784] id=360 pred=sarcastic confidence=0.90
+[362/784] id=361 pred=non_sarcastic confidence=0.90
+[363/784] id=362 pred=sarcastic confidence=0.90
+[364/784] id=363 pred=sarcastic confidence=0.90
+[365/784] id=364 pred=sarcastic confidence=0.90
+[366/784] id=365 pred=sarcastic confidence=0.90
+[367/784] id=366 pred=sarcastic confidence=0.90
+[368/784] id=367 pred=sarcastic confidence=0.90
+[369/784] id=368 pred=sarcastic confidence=0.90
+[370/784] id=369 pred=non_sarcastic confidence=0.90
+[371/784] id=370 pred=non_sarcastic confidence=0.90
+[372/784] id=371 pred=sarcastic confidence=0.90
+[373/784] id=372 pred=non_sarcastic confidence=0.90
+[374/784] id=373 pred=sarcastic confidence=0.90
+[375/784] id=374 pred=sarcastic confidence=0.90
+[376/784] id=375 pred=non_sarcastic confidence=0.90
+[377/784] id=376 pred=sarcastic confidence=0.90
+[378/784] id=377 pred=sarcastic confidence=0.90
+[379/784] id=378 pred=sarcastic confidence=0.90
+[380/784] id=379 pred=sarcastic confidence=0.90
+[381/784] id=380 pred=non_sarcastic confidence=0.90
+[382/784] id=381 pred=sarcastic confidence=0.90
+[383/784] id=382 pred=non_sarcastic confidence=0.90
+[384/784] id=383 pred=sarcastic confidence=0.90
+[385/784] id=384 pred=sarcastic confidence=0.90
+[386/784] id=385 pred=sarcastic confidence=0.90
+[387/784] id=386 pred=sarcastic confidence=0.90
+[388/784] id=387 pred=non_sarcastic confidence=0.90
+[389/784] id=388 pred=sarcastic confidence=0.90
+[390/784] id=389 pred=sarcastic confidence=0.90
+[391/784] id=390 pred=sarcastic confidence=0.90
+[392/784] id=391 pred=sarcastic confidence=0.90
+[393/784] id=392 pred=sarcastic confidence=0.90
+[394/784] id=393 pred=sarcastic confidence=0.90
+[395/784] id=394 pred=sarcastic confidence=0.90
+[396/784] id=395 pred=sarcastic confidence=0.90
+[397/784] id=396 pred=sarcastic confidence=0.90
+[398/784] id=397 pred=sarcastic confidence=0.90
+[399/784] id=398 pred=sarcastic confidence=0.90
+[400/784] id=399 pred=sarcastic confidence=0.90
+[401/784] id=400 pred=sarcastic confidence=0.90
+[402/784] id=401 pred=sarcastic confidence=0.90
+[403/784] id=402 pred=sarcastic confidence=0.90
+[404/784] id=403 pred=sarcastic confidence=0.90
+[405/784] id=404 pred=sarcastic confidence=0.90
+[406/784] id=405 pred=sarcastic confidence=0.90
+[407/784] id=406 pred=sarcastic confidence=0.90
+[408/784] id=407 pred=sarcastic confidence=0.90
+[409/784] id=408 pred=sarcastic confidence=0.90
+[410/784] id=409 pred=non_sarcastic confidence=0.90
+[411/784] id=410 pred=sarcastic confidence=0.90
+[412/784] id=411 pred=sarcastic confidence=0.90
+[413/784] id=412 pred=sarcastic confidence=0.90
+[414/784] id=413 pred=sarcastic confidence=0.90
+[415/784] id=414 pred=sarcastic confidence=0.90
+[416/784] id=415 pred=sarcastic confidence=0.90
+[417/784] id=416 pred=sarcastic confidence=0.90
+[418/784] id=417 pred=non_sarcastic confidence=0.90
+[419/784] id=418 pred=sarcastic confidence=0.90
+[420/784] id=419 pred=sarcastic confidence=0.90
+[421/784] id=420 pred=sarcastic confidence=0.90
+[422/784] id=421 pred=sarcastic confidence=0.90
+[423/784] id=422 pred=sarcastic confidence=0.90
+[424/784] id=423 pred=sarcastic confidence=0.90
+[425/784] id=424 pred=non_sarcastic confidence=0.90
+[426/784] id=425 pred=non_sarcastic confidence=0.90
+[427/784] id=426 pred=sarcastic confidence=0.90
+[428/784] id=427 pred=sarcastic confidence=0.90
+[429/784] id=428 pred=non_sarcastic confidence=0.90
+[430/784] id=429 pred=non_sarcastic confidence=0.90
+[431/784] id=430 pred=sarcastic confidence=0.90
+[432/784] id=431 pred=sarcastic confidence=0.90
+[433/784] id=432 pred=sarcastic confidence=0.90
+[434/784] id=433 pred=sarcastic confidence=0.90
+[435/784] id=434 pred=sarcastic confidence=0.90
+[436/784] id=435 pred=sarcastic confidence=0.90
+[437/784] id=436 pred=non_sarcastic confidence=0.90
+[438/784] id=437 pred=non_sarcastic confidence=0.90
+[439/784] id=438 pred=sarcastic confidence=0.90
+[440/784] id=439 pred=sarcastic confidence=0.90
+[441/784] id=440 pred=sarcastic confidence=0.90
+[442/784] id=441 pred=non_sarcastic confidence=0.90
+[443/784] id=442 pred=sarcastic confidence=0.90
+[444/784] id=443 pred=non_sarcastic confidence=0.90
+[445/784] id=444 pred=non_sarcastic confidence=0.90
+[446/784] id=445 pred=sarcastic confidence=0.90
+[447/784] id=446 pred=sarcastic confidence=0.90
+[448/784] id=447 pred=sarcastic confidence=0.90
+[449/784] id=448 pred=non_sarcastic confidence=0.90
+[450/784] id=449 pred=sarcastic confidence=0.90
+[451/784] id=450 pred=sarcastic confidence=0.90
+[452/784] id=451 pred=sarcastic confidence=0.90
+[453/784] id=452 pred=sarcastic confidence=0.90
+[454/784] id=453 pred=sarcastic confidence=0.90
+[455/784] id=454 pred=non_sarcastic confidence=0.90
+[456/784] id=455 pred=sarcastic confidence=0.90
+[457/784] id=456 pred=sarcastic confidence=0.90
+[458/784] id=457 pred=non_sarcastic confidence=0.90
+[459/784] id=458 pred=sarcastic confidence=0.90
+[460/784] id=459 pred=non_sarcastic confidence=0.90
+[461/784] id=460 pred=sarcastic confidence=0.90
+[462/784] id=461 pred=sarcastic confidence=0.90
+[463/784] id=462 pred=non_sarcastic confidence=0.90
+[464/784] id=463 pred=sarcastic confidence=0.90
+[465/784] id=464 pred=non_sarcastic confidence=0.90
+[466/784] id=465 pred=sarcastic confidence=0.90
+[467/784] id=466 pred=sarcastic confidence=0.90
+[468/784] id=467 pred=sarcastic confidence=0.90
+[469/784] id=468 pred=non_sarcastic confidence=0.90
+[470/784] id=469 pred=sarcastic confidence=0.90
+[471/784] id=470 pred=non_sarcastic confidence=0.90
+[472/784] id=471 pred=sarcastic confidence=0.90
+[473/784] id=472 pred=sarcastic confidence=0.90
+[474/784] id=473 pred=sarcastic confidence=0.90
+[475/784] id=474 pred=sarcastic confidence=0.90
+[476/784] id=475 pred=sarcastic confidence=0.90
+[477/784] id=476 pred=non_sarcastic confidence=0.90
+[478/784] id=477 pred=sarcastic confidence=0.90
+[479/784] id=478 pred=sarcastic confidence=0.90
+[480/784] id=479 pred=sarcastic confidence=0.90
+[481/784] id=480 pred=sarcastic confidence=0.90
+[482/784] id=481 pred=sarcastic confidence=0.90
+[483/784] id=482 pred=sarcastic confidence=0.90
+[484/784] id=483 pred=non_sarcastic confidence=0.90
+[485/784] id=484 pred=non_sarcastic confidence=0.90
+[486/784] id=485 pred=sarcastic confidence=0.90
+[487/784] id=486 pred=non_sarcastic confidence=0.90
+[488/784] id=487 pred=non_sarcastic confidence=0.90
+[489/784] id=488 pred=sarcastic confidence=0.90
+[490/784] id=489 pred=sarcastic confidence=0.90
+[491/784] id=490 pred=non_sarcastic confidence=0.90
+[492/784] id=491 pred=sarcastic confidence=0.90
+[493/784] id=492 pred=sarcastic confidence=0.90
+[494/784] id=493 pred=non_sarcastic confidence=0.90
+[495/784] id=494 pred=sarcastic confidence=0.90
+[496/784] id=495 pred=sarcastic confidence=0.90
+[497/784] id=496 pred=sarcastic confidence=0.90
+[498/784] id=497 pred=sarcastic confidence=0.90
+[499/784] id=498 pred=sarcastic confidence=0.90
+[500/784] id=499 pred=sarcastic confidence=0.90
+[501/784] id=500 pred=sarcastic confidence=0.90
+[502/784] id=501 pred=non_sarcastic confidence=0.90
+[503/784] id=502 pred=sarcastic confidence=0.90
+[504/784] id=503 pred=sarcastic confidence=0.90
+[505/784] id=504 pred=sarcastic confidence=0.90
+[506/784] id=505 pred=sarcastic confidence=0.90
+[507/784] id=506 pred=sarcastic confidence=0.90
+[508/784] id=507 pred=non_sarcastic confidence=0.90
+[509/784] id=508 pred=sarcastic confidence=0.90
+[510/784] id=509 pred=sarcastic confidence=0.90
+[511/784] id=510 pred=sarcastic confidence=0.90
+[512/784] id=511 pred=sarcastic confidence=0.90
+[513/784] id=512 pred=sarcastic confidence=0.90
+[514/784] id=513 pred=sarcastic confidence=0.90
+[515/784] id=514 pred=non_sarcastic confidence=0.90
+[516/784] id=515 pred=sarcastic confidence=0.90
+[517/784] id=516 pred=sarcastic confidence=0.90
+[518/784] id=517 pred=non_sarcastic confidence=0.90
+[519/784] id=518 pred=non_sarcastic confidence=0.90
+[520/784] id=519 pred=sarcastic confidence=0.90
+[521/784] id=520 pred=sarcastic confidence=0.90
+[522/784] id=521 pred=sarcastic confidence=0.90
+[523/784] id=522 pred=sarcastic confidence=0.90
+[524/784] id=523 pred=sarcastic confidence=0.90
+[525/784] id=524 pred=sarcastic confidence=0.90
+[526/784] id=525 pred=sarcastic confidence=0.90
+[527/784] id=526 pred=non_sarcastic confidence=0.90
+[528/784] id=527 pred=non_sarcastic confidence=0.90
+[529/784] id=528 pred=non_sarcastic confidence=0.90
+[530/784] id=529 pred=sarcastic confidence=0.90
+[531/784] id=530 pred=sarcastic confidence=0.90
+[532/784] id=531 pred=sarcastic confidence=0.90
+[533/784] id=532 pred=non_sarcastic confidence=0.90
+[534/784] id=533 pred=sarcastic confidence=0.90
+[535/784] id=534 pred=sarcastic confidence=0.90
+[536/784] id=535 pred=sarcastic confidence=0.90
+[537/784] id=536 pred=sarcastic confidence=0.90
+[538/784] id=537 pred=sarcastic confidence=0.90
+[539/784] id=538 pred=sarcastic confidence=0.90
+[540/784] id=539 pred=sarcastic confidence=0.90
+[541/784] id=540 pred=non_sarcastic confidence=0.90
+[542/784] id=541 pred=sarcastic confidence=0.90
+[543/784] id=542 pred=non_sarcastic confidence=0.90
+[544/784] id=543 pred=sarcastic confidence=0.90
+[545/784] id=544 pred=sarcastic confidence=0.90
+[546/784] id=545 pred=sarcastic confidence=0.90
+[547/784] id=546 pred=sarcastic confidence=0.90
+[548/784] id=547 pred=sarcastic confidence=0.90
+[549/784] id=548 pred=non_sarcastic confidence=0.90
+[550/784] id=549 pred=sarcastic confidence=0.90
+[551/784] id=550 pred=sarcastic confidence=0.90
+[552/784] id=551 pred=non_sarcastic confidence=0.90
+[553/784] id=552 pred=sarcastic confidence=0.90
+[554/784] id=553 pred=sarcastic confidence=0.90
+[555/784] id=554 pred=sarcastic confidence=0.90
+[556/784] id=555 pred=sarcastic confidence=0.90
+[557/784] id=556 pred=sarcastic confidence=0.90
+[558/784] id=557 pred=sarcastic confidence=0.90
+[559/784] id=558 pred=sarcastic confidence=0.90
+[560/784] id=559 pred=sarcastic confidence=0.90
+[561/784] id=560 pred=non_sarcastic confidence=0.90
+[562/784] id=561 pred=sarcastic confidence=0.90
+[563/784] id=562 pred=sarcastic confidence=0.90
+[564/784] id=563 pred=sarcastic confidence=0.90
+[565/784] id=564 pred=sarcastic confidence=0.90
+[566/784] id=565 pred=sarcastic confidence=0.90
+[567/784] id=566 pred=non_sarcastic confidence=0.90
+[568/784] id=567 pred=sarcastic confidence=0.90
+[569/784] id=568 pred=sarcastic confidence=0.90
+[570/784] id=569 pred=sarcastic confidence=0.90
+[571/784] id=570 pred=sarcastic confidence=0.90
+[572/784] id=571 pred=sarcastic confidence=0.90
+[573/784] id=572 pred=non_sarcastic confidence=0.90
+[574/784] id=573 pred=sarcastic confidence=0.90
+[575/784] id=574 pred=sarcastic confidence=0.90
+[576/784] id=575 pred=sarcastic confidence=0.90
+[577/784] id=576 pred=sarcastic confidence=0.90
+[578/784] id=577 pred=sarcastic confidence=0.90
+[579/784] id=578 pred=sarcastic confidence=0.90
+[580/784] id=579 pred=sarcastic confidence=0.90
+[581/784] id=580 pred=sarcastic confidence=0.90
+[582/784] id=581 pred=sarcastic confidence=0.90
+[583/784] id=582 pred=sarcastic confidence=0.90
+[584/784] id=583 pred=sarcastic confidence=0.90
+[585/784] id=584 pred=non_sarcastic confidence=0.90
+[586/784] id=585 pred=non_sarcastic confidence=0.90
+[587/784] id=586 pred=sarcastic confidence=0.90
+[588/784] id=587 pred=sarcastic confidence=0.90
+[589/784] id=588 pred=sarcastic confidence=0.90
+[590/784] id=589 pred=sarcastic confidence=0.90
+[591/784] id=590 pred=sarcastic confidence=0.90
+[592/784] id=591 pred=sarcastic confidence=0.90
+[593/784] id=592 pred=sarcastic confidence=0.90
+[594/784] id=593 pred=sarcastic confidence=0.90
+[595/784] id=594 pred=sarcastic confidence=0.90
+[596/784] id=595 pred=sarcastic confidence=0.90
+[597/784] id=596 pred=non_sarcastic confidence=0.90
+[598/784] id=597 pred=non_sarcastic confidence=0.90
+[599/784] id=598 pred=sarcastic confidence=0.90
+[600/784] id=599 pred=sarcastic confidence=0.90
+[601/784] id=600 pred=sarcastic confidence=0.90
+[602/784] id=601 pred=sarcastic confidence=0.90
+[603/784] id=602 pred=sarcastic confidence=0.90
+[604/784] id=603 pred=sarcastic confidence=0.90
+[605/784] id=604 pred=non_sarcastic confidence=0.90
+[606/784] id=605 pred=sarcastic confidence=0.90
+[607/784] id=606 pred=non_sarcastic confidence=0.90
+[608/784] id=607 pred=sarcastic confidence=0.90
+[609/784] id=608 pred=sarcastic confidence=0.90
+[610/784] id=609 pred=sarcastic confidence=0.90
+[611/784] id=610 pred=sarcastic confidence=0.90
+[612/784] id=611 pred=non_sarcastic confidence=0.90
+[613/784] id=612 pred=sarcastic confidence=0.90
+[614/784] id=613 pred=sarcastic confidence=0.90
+[615/784] id=614 pred=sarcastic confidence=0.90
+[616/784] id=615 pred=sarcastic confidence=0.90
+[617/784] id=616 pred=non_sarcastic confidence=0.90
+[618/784] id=617 pred=sarcastic confidence=0.90
+[619/784] id=618 pred=sarcastic confidence=0.90
+[620/784] id=619 pred=sarcastic confidence=0.90
+[621/784] id=620 pred=sarcastic confidence=0.90
+[622/784] id=621 pred=sarcastic confidence=0.90
+[623/784] id=622 pred=non_sarcastic confidence=0.90
+[624/784] id=623 pred=sarcastic confidence=0.90
+[625/784] id=624 pred=sarcastic confidence=0.90
+[626/784] id=625 pred=sarcastic confidence=0.90
+[627/784] id=626 pred=sarcastic confidence=0.90
+[628/784] id=627 pred=sarcastic confidence=0.90
+[629/784] id=628 pred=sarcastic confidence=0.90
+[630/784] id=629 pred=sarcastic confidence=0.90
+[631/784] id=630 pred=sarcastic confidence=0.90
+[632/784] id=631 pred=sarcastic confidence=0.90
+[633/784] id=632 pred=sarcastic confidence=0.90
+[634/784] id=633 pred=sarcastic confidence=0.90
+[635/784] id=634 pred=sarcastic confidence=0.90
+[636/784] id=635 pred=sarcastic confidence=0.90
+[637/784] id=636 pred=sarcastic confidence=0.90
+[638/784] id=637 pred=sarcastic confidence=0.90
+[639/784] id=638 pred=sarcastic confidence=0.90
+[640/784] id=639 pred=sarcastic confidence=0.90
+[641/784] id=640 pred=sarcastic confidence=0.90
+[642/784] id=641 pred=non_sarcastic confidence=0.90
+[643/784] id=642 pred=sarcastic confidence=0.90
+[644/784] id=643 pred=non_sarcastic confidence=0.90
+[645/784] id=644 pred=sarcastic confidence=0.90
+[646/784] id=645 pred=sarcastic confidence=0.90
+[647/784] id=646 pred=sarcastic confidence=0.90
+[648/784] id=647 pred=sarcastic confidence=0.90
+[649/784] id=648 pred=sarcastic confidence=0.90
+[650/784] id=649 pred=sarcastic confidence=0.90
+[651/784] id=650 pred=sarcastic confidence=0.90
+[652/784] id=651 pred=sarcastic confidence=0.90
+[653/784] id=652 pred=sarcastic confidence=0.90
+[654/784] id=653 pred=non_sarcastic confidence=0.90
+[655/784] id=654 pred=sarcastic confidence=0.90
+[656/784] id=655 pred=sarcastic confidence=0.90
+[657/784] id=656 pred=sarcastic confidence=0.90
+[658/784] id=657 pred=sarcastic confidence=0.90
+[659/784] id=658 pred=sarcastic confidence=0.90
+[660/784] id=659 pred=sarcastic confidence=0.90
+[661/784] id=660 pred=sarcastic confidence=0.90
+[662/784] id=661 pred=sarcastic confidence=0.90
+[663/784] id=662 pred=sarcastic confidence=0.90
+[664/784] id=663 pred=sarcastic confidence=0.90
+[665/784] id=664 pred=sarcastic confidence=0.90
+[666/784] id=665 pred=sarcastic confidence=0.90
+[667/784] id=666 pred=sarcastic confidence=0.90
+[668/784] id=667 pred=sarcastic confidence=0.90
+[669/784] id=668 pred=sarcastic confidence=0.90
+[670/784] id=669 pred=sarcastic confidence=0.90
+[671/784] id=670 pred=sarcastic confidence=0.90
+[672/784] id=671 pred=sarcastic confidence=0.90
+[673/784] id=672 pred=sarcastic confidence=0.90
+[674/784] id=673 pred=sarcastic confidence=0.90
+[675/784] id=674 pred=sarcastic confidence=0.90
+[676/784] id=675 pred=sarcastic confidence=0.90
+[677/784] id=676 pred=sarcastic confidence=0.90
+[678/784] id=677 pred=non_sarcastic confidence=0.90
+[679/784] id=678 pred=non_sarcastic confidence=0.90
+[680/784] id=679 pred=sarcastic confidence=0.90
+[681/784] id=680 pred=sarcastic confidence=0.90
+[682/784] id=681 pred=non_sarcastic confidence=0.90
+[683/784] id=682 pred=sarcastic confidence=0.90
+[684/784] id=683 pred=sarcastic confidence=0.90
+[685/784] id=684 pred=sarcastic confidence=0.90
+[686/784] id=685 pred=sarcastic confidence=0.90
+[687/784] id=686 pred=non_sarcastic confidence=0.90
+[688/784] id=687 pred=sarcastic confidence=0.90
+[689/784] id=688 pred=sarcastic confidence=0.90
+[690/784] id=689 pred=sarcastic confidence=0.90
+[691/784] id=690 pred=sarcastic confidence=0.90
+[692/784] id=691 pred=sarcastic confidence=0.90
+[693/784] id=692 pred=non_sarcastic confidence=0.90
+[694/784] id=693 pred=sarcastic confidence=0.90
+[695/784] id=694 pred=sarcastic confidence=0.90
+[696/784] id=695 pred=sarcastic confidence=0.90
+[697/784] id=696 pred=sarcastic confidence=0.90
+[698/784] id=697 pred=non_sarcastic confidence=0.90
+[699/784] id=698 pred=sarcastic confidence=0.90
+[700/784] id=699 pred=sarcastic confidence=0.90
+[701/784] id=700 pred=non_sarcastic confidence=0.90
+[702/784] id=701 pred=sarcastic confidence=0.90
+[703/784] id=702 pred=sarcastic confidence=0.90
+[704/784] id=703 pred=non_sarcastic confidence=0.90
+[705/784] id=704 pred=sarcastic confidence=0.90
+[706/784] id=705 pred=sarcastic confidence=0.90
+[707/784] id=706 pred=sarcastic confidence=0.90
+[708/784] id=707 pred=sarcastic confidence=0.90
+[709/784] id=708 pred=sarcastic confidence=0.90
+[710/784] id=709 pred=non_sarcastic confidence=0.90
+[711/784] id=710 pred=sarcastic confidence=0.90
+[712/784] id=711 pred=sarcastic confidence=0.90
+[713/784] id=712 pred=sarcastic confidence=0.90
+[714/784] id=713 pred=sarcastic confidence=0.90
+[715/784] id=714 pred=sarcastic confidence=0.90
+[716/784] id=715 pred=non_sarcastic confidence=0.90
+[717/784] id=716 pred=non_sarcastic confidence=0.90
+[718/784] id=717 pred=sarcastic confidence=0.90
+[719/784] id=718 pred=sarcastic confidence=0.90
+[720/784] id=719 pred=sarcastic confidence=0.90
+[721/784] id=720 pred=sarcastic confidence=0.90
+[722/784] id=721 pred=sarcastic confidence=0.90
+[723/784] id=722 pred=sarcastic confidence=0.90
+[724/784] id=723 pred=sarcastic confidence=0.90
+[725/784] id=724 pred=non_sarcastic confidence=0.90
+[726/784] id=725 pred=sarcastic confidence=0.90
+[727/784] id=726 pred=sarcastic confidence=0.90
+[728/784] id=727 pred=sarcastic confidence=0.90
+[729/784] id=728 pred=sarcastic confidence=0.90
+[730/784] id=729 pred=sarcastic confidence=0.90
+[731/784] id=730 pred=sarcastic confidence=0.90
+[732/784] id=731 pred=non_sarcastic confidence=0.90
+[733/784] id=732 pred=sarcastic confidence=0.90
+[734/784] id=733 pred=sarcastic confidence=0.90
+[735/784] id=734 pred=sarcastic confidence=0.90
+[736/784] id=735 pred=sarcastic confidence=0.90
+[737/784] id=736 pred=sarcastic confidence=0.90
+[738/784] id=737 pred=sarcastic confidence=0.90
+[739/784] id=738 pred=sarcastic confidence=0.90
+[740/784] id=739 pred=sarcastic confidence=0.90
+[741/784] id=740 pred=sarcastic confidence=0.90
+[742/784] id=741 pred=sarcastic confidence=0.90
+[743/784] id=742 pred=sarcastic confidence=0.90
+[744/784] id=743 pred=non_sarcastic confidence=0.90
+[745/784] id=744 pred=sarcastic confidence=0.90
+[746/784] id=745 pred=sarcastic confidence=0.90
+[747/784] id=746 pred=sarcastic confidence=0.90
+[748/784] id=747 pred=sarcastic confidence=0.90
+[749/784] id=748 pred=sarcastic confidence=0.90
+[750/784] id=749 pred=sarcastic confidence=0.90
+[751/784] id=750 pred=sarcastic confidence=0.90
+[752/784] id=751 pred=sarcastic confidence=0.90
+[753/784] id=752 pred=sarcastic confidence=0.90
+[754/784] id=753 pred=sarcastic confidence=0.90
+[755/784] id=754 pred=sarcastic confidence=0.90
+[756/784] id=755 pred=sarcastic confidence=0.90
+[757/784] id=756 pred=sarcastic confidence=0.90
+[758/784] id=757 pred=sarcastic confidence=0.90
+[759/784] id=758 pred=sarcastic confidence=0.90
+[760/784] id=759 pred=sarcastic confidence=0.90
+[761/784] id=760 pred=sarcastic confidence=0.90
+[762/784] id=761 pred=sarcastic confidence=0.90
+[763/784] id=762 pred=non_sarcastic confidence=0.90
+[764/784] id=763 pred=sarcastic confidence=0.90
+[765/784] id=764 pred=sarcastic confidence=0.90
+[766/784] id=765 pred=sarcastic confidence=0.90
+[767/784] id=766 pred=sarcastic confidence=0.90
+[768/784] id=767 pred=sarcastic confidence=0.90
+[769/784] id=768 pred=non_sarcastic confidence=0.90
+[770/784] id=769 pred=sarcastic confidence=0.90
+[771/784] id=770 pred=non_sarcastic confidence=0.90
+[772/784] id=771 pred=sarcastic confidence=0.90
+[773/784] id=772 pred=sarcastic confidence=0.90
+[774/784] id=773 pred=sarcastic confidence=0.90
+[775/784] id=774 pred=sarcastic confidence=0.90
+[776/784] id=775 pred=sarcastic confidence=0.90
+[777/784] id=776 pred=sarcastic confidence=0.90
+[778/784] id=777 pred=sarcastic confidence=0.90
+[779/784] id=778 pred=sarcastic confidence=0.90
+[780/784] id=779 pred=non_sarcastic confidence=0.90
+[781/784] id=780 pred=sarcastic confidence=0.90
+[782/784] id=781 pred=sarcastic confidence=0.90
+[783/784] id=782 pred=sarcastic confidence=0.90
+[784/784] id=783 pred=sarcastic confidence=0.90
+[EVAL] semeval784_baseline -> framework3/results/semeval784_baseline_eval.json
+{
+  "name": "semeval784_baseline",
+  "input": "framework3/predictions/semeval784_baseline.jsonl",
+  "total": 784,
+  "accuracy": 0.5790816326530612,
+  "macro_f1": 0.559820334830543,
+  "per_label": {
+    "sarcastic": {
+      "precision": 0.4850863422291994,
+      "recall": 0.9935691318327974,
+      "f1": 0.6518987341772151,
+      "support": 311,
+      "tp": 309,
+      "fp": 328,
+      "fn": 2
+    },
+    "non_sarcastic": {
+      "precision": 0.9863945578231292,
+      "recall": 0.30655391120507397,
+      "f1": 0.46774193548387094,
+      "support": 473,
+      "tp": 145,
+      "fp": 2,
+      "fn": 328
+    }
+  },
+  "confusion_matrix": {
+    "tp": 309,
+    "fp": 328,
+    "fn": 2,
+    "tn": 145
+  }
+}
+==========================================
+Baseline run finished
+Predictions:
+framework3/predictions/semeval200_baseline.jsonl
+framework3/predictions/semeval784_baseline.jsonl
+Results:
+framework3/results/semeval200_baseline_eval.json
+framework3/results/semeval784_baseline_eval.json
+==========================================

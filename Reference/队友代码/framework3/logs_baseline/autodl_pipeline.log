@@ -1,0 +1,50 @@
+==========================================
+AutoDL Framework3 Pipeline
+Project          : /root/autodl-tmp/project
+Base model       : /root/autodl-tmp/project/models/Qwen3-14B
+Dataset          : all
+Train Framework2 : 1
+Train Framework3 : 1
+==========================================
+==========================================
+Framework2 GRPO Training with Qwen3-14B
+Model: /root/autodl-tmp/project/models/Qwen3-14B
+Data : framework2/Sarcasm-R1/data/processed/semeval_train.csv
+==========================================
+=== Sarcasm-R1 GRPO Training (Local) ===
+Model: /root/autodl-tmp/project/models/Qwen3-14B
+Data:  data/processed/semeval_train.csv
+GPUs:  1
+
+[transformers] warmup_ratio is deprecated and will be removed in v5.2. Use `warmup_steps` instead.
+Loading data from: /root/autodl-tmp/project/framework2/Sarcasm-R1/data/processed/semeval_train.csv
+  Raw data: 2862 samples
+  Columns: ['question', 'answer', 'source_text', 'source_label']
+  Formatted: 2862 samples
+  Distribution: {'sarcastic': 1445, 'non_sarcastic': 1417}
+Loading weights:   0%|          | 0/443 [00:00<?, ?it/s]Loading weights:   0%|          | 1/443 [00:01<10:16,  1.39s/it]Loading weights:   0%|          | 2/443 [00:01<05:35,  1.31it/s]Loading weights:   6%|▌         | 26/443 [00:02<00:21, 19.80it/s]Loading weights:   8%|▊         | 37/443 [00:02<00:18, 21.41it/s]Loading weights:  11%|█         | 48/443 [00:02<00:16, 23.36it/s]Loading weights:  13%|█▎        | 59/443 [00:03<00:14, 26.08it/s]Loading weights:  16%|█▌        | 70/443 [00:03<00:11, 33.42it/s]Loading weights:  17%|█▋        | 75/443 [00:03<00:13, 28.26it/s]Loading weights:  19%|█▊        | 82/443 [00:03<00:11, 31.74it/s]Loading weights:  21%|██        | 92/443 [00:04<00:14, 23.72it/s]Loading weights:  23%|██▎       | 104/443 [00:04<00:10, 32.05it/s]Loading weights:  25%|██▌       | 111/443 [00:04<00:10, 33.12it/s]Loading weights:  26%|██▌       | 116/443 [00:05<00:10, 29.96it/s]Loading weights:  28%|██▊       | 125/443 [00:05<00:11, 27.08it/s]Loading weights:  31%|███       | 137/443 [00:05<00:09, 33.25it/s]Loading weights:  33%|███▎      | 148/443 [00:06<00:09, 32.65it/s]Loading weights:  36%|███▌      | 159/443 [00:06<00:07, 35.52it/s]Loading weights:  38%|███▊      | 169/443 [00:06<00:09, 29.56it/s]Loading weights:  39%|███▉      | 173/443 [00:06<00:08, 30.62it/s]Loading weights:  41%|████      | 181/443 [00:07<00:07, 33.19it/s]Loading weights:  43%|████▎     | 191/443 [00:07<00:09, 27.48it/s]Loading weights:  46%|████▌     | 202/443 [00:07<00:08, 29.07it/s]Loading weights:  48%|████▊     | 213/443 [00:07<00:06, 37.35it/s]Loading weights:  49%|████▉     | 218/443 [00:08<00:06, 32.97it/s]Loading weights:  51%|█████     | 224/443 [00:08<00:07, 27.67it/s]Loading weights:  53%|█████▎    | 235/443 [00:08<00:06, 32.72it/s]Loading weights:  54%|█████▍    | 239/443 [00:09<00:07, 28.58it/s]Loading weights:  56%|█████▌    | 247/443 [00:09<00:06, 32.32it/s]Loading weights:  57%|█████▋    | 254/443 [00:09<00:05, 32.34it/s]Loading weights:  58%|█████▊    | 258/443 [00:09<00:06, 29.84it/s]Loading weights:  59%|█████▉    | 262/443 [00:09<00:05, 31.34it/s]Loading weights:  60%|██████    | 268/443 [00:10<00:08, 19.97it/s]Loading weights:  63%|██████▎   | 280/443 [00:10<00:05, 28.05it/s]Loading weights:  66%|██████▌   | 291/443 [00:10<00:05, 27.53it/s]Loading weights:  68%|██████▊   | 301/443 [00:11<00:04, 29.98it/s]Loading weights:  69%|██████▉   | 306/443 [00:11<00:04, 32.46it/s]Loading weights:  70%|██████▉   | 310/443 [00:11<00:04, 30.53it/s]Loading weights:  71%|███████   | 314/443 [00:11<00:04, 27.81it/s]Loading weights:  72%|███████▏  | 320/443 [00:11<00:04, 29.04it/s]Loading weights:  73%|███████▎  | 324/443 [00:11<00:04, 26.21it/s]Loading weights:  75%|███████▌  | 334/443 [00:12<00:03, 28.22it/s]Loading weights:  78%|███████▊  | 345/443 [00:12<00:03, 28.54it/s]Loading weights:  80%|████████  | 356/443 [00:12<00:02, 38.78it/s]Loading weights:  82%|████████▏ | 362/443 [00:12<00:01, 42.06it/s]Loading weights:  83%|████████▎ | 368/443 [00:13<00:02, 28.17it/s]Loading weights:  85%|████████▌ | 378/443 [00:13<00:02, 24.89it/s]Loading weights:  88%|████████▊ | 390/443 [00:14<00:01, 31.38it/s]Loading weights:  90%|█████████ | 400/443 [00:14<00:01, 24.93it/s]Loading weights:  93%|█████████▎| 411/443 [00:15<00:01, 25.67it/s]Loading weights:  95%|█████████▌| 422/443 [00:15<00:00, 27.12it/s]Loading weights:  98%|█████████▊| 434/443 [00:15<00:00, 27.89it/s]Loading weights: 100%|██████████| 443/443 [00:15<00:00, 28.06it/s]
+[transformers] max_steps is given, it will override any value given in num_train_epochs
+[transformers] The tokenizer has new PAD/BOS/EOS tokens that differ from the model config and generation config. The model config and generation config were aligned accordingly, being updated with the tokenizer's values. Updated tokens: {'bos_token_id': None, 'pad_token_id': 151645}.
+[transformers] ***** Running training *****
+[transformers]   Num examples = 2,862
+[transformers]   Num Epochs = 1
+[transformers]   Num update steps per epoch = 2,862
+[transformers]   Instantaneous batch size per device = 1
+[transformers]   Total train batch size (w. parallel, distributed & accumulation) = 4
+[transformers]   Gradient Accumulation steps = 4
+[transformers]   Total optimization steps = 200
+[transformers]   Number of trainable parameters = 64,225,280
+
+============================================================
+Training Configuration:
+  Model: /root/autodl-tmp/project/models/Qwen3-14B
+  Data: 2862 samples
+  Epochs: 1
+  Batch size: 1
+  Generations per prompt: 4
+  Learning rate: 3e-06
+  Output: ../../output/sarcasm-r1
+  Reward functions: ['combined_reward', 'accuracy_reward_log']
+============================================================
+
+  0%|          | 0/200 [00:00<?, ?it/s]  0%|          | 1/200 [00:39<2:10:29, 39.35s/it]  1%|          | 2/200 [01:18<2:09:53, 39.36s/it]  2%|▏         | 3/200 [01:57<2:08:45, 39.22s/it]  2%|▏         | 4/200 [02:37<2:08:16, 39.27s/it]
